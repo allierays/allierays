@@ -1,0 +1,74 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="Projects — Allie Rays" description="Things I've built: Content Compass, GOPA, Lumis.">
+  <section style="margin-top: 2rem;">
+    <h1>Projects</h1>
+
+    <div class="project-list">
+      <div class="project">
+        <h2>Content Compass</h2>
+        <p class="project-meta">Go1 · 2024–present · FastAPI, React 19, PostgreSQL, Qdrant</p>
+        <p>
+          Production AI platform for Go1's 107K+ course catalog. LLM-powered search, vector similarity, AI enrichment pipeline that scores and categorizes content at scale. The first thing I built when I decided Go1 needed an Applied AI team.
+        </p>
+      </div>
+
+      <div class="project">
+        <h2>GOPA</h2>
+        <p class="project-meta">Go1 · 2024–present · Python, MCP, Slack</p>
+        <p>
+          MCP server and Slack bot with 200+ tools. Connects Outlook, Asana, Salesforce, and Gong through an agentic architecture with workflow routing. Running live in Go1's Slack workspace, handling everything from calendar management to deal intelligence.
+        </p>
+      </div>
+
+      <div class="project">
+        <h2>Lumis</h2>
+        <p class="project-meta">Personal · 2025–present · TypeScript, Claude API, Remotion</p>
+        <p>
+          My AI confidant for storytelling. CLI tool and MCP server that lives in an Obsidian vault. Captures daily moments, synthesizes research, finds patterns across experiences, and turns stories into articles, videos, carousels, and diagrams. Built entirely on Claude's stack.
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .project {
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--marble);
+  }
+
+  .project:last-child {
+    border-bottom: none;
+  }
+
+  .project h2 {
+    font-size: 1.25rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: 0.01em;
+    margin: 0 0 0.25rem;
+  }
+
+  .project-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+  }
+
+  .project p:last-child {
+    margin-bottom: 0;
+    font-size: 0.9375rem;
+  }
+</style>
