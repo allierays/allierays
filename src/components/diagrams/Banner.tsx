@@ -79,7 +79,7 @@ export default function Banner() {
       <text x={750} y={50} textAnchor="middle" fontFamily={display} fontSize={10} fill={TEAL} fontWeight={600} letterSpacing="0.08em">AGENT</text>
       <text x={750} y={64} textAnchor="middle" fontFamily={font} fontSize={8.5} fill={INK_MUTED} fontStyle="italic">Dynamic decisions</text>
 
-      <Box x={655} y={90} w={52} h={24} label="Query" fill={TEAL} stroke={TEAL} textColor="#fff" />
+      <Box x={655} y={90} w={52} h={24} label="Query" fill={TEAL} stroke={TEAL} textColor="#fff" fontSize={8.5} />
       <line x1={707} y1={102} x2={722} y2={102} stroke={TEAL} strokeWidth={1.2} markerEnd={`url(#a-${TEAL.slice(1)})`} />
 
       {/* LLM diamond */}
