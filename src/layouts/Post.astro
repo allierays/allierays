@@ -18,9 +18,9 @@ const formatted = date.toLocaleDateString('en-US', {
 });
 ---
 
-<Base title={`${title} — Allie Rays`} description={description} image={image}>
+<Base title={`${title} — Allie Rays`} description={description} image={image} fullWidth>
   <article>
-    <header style="margin-bottom: 2.5rem;">
+    <header style="margin-bottom: 2.5rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
       <time
         datetime={date.toISOString()}
         style="font-family: var(--font-mono); font-size: 0.6875rem; color: var(--ink-muted); letter-spacing: 0.06em;"
