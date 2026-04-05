@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 420" fill="none">
+  <defs>
+    <style>
+      text { font-family: 'SF Mono', 'Menlo', 'Monaco', monospace; }
+    </style>
+  </defs>
+
+  <!-- Terminal background -->
+  <rect width="720" height="420" rx="10" fill="#1a1a2e"/>
+
+  <!-- Title bar dots -->
+  <circle cx="20" cy="16" r="5" fill="#ff5f57"/>
+  <circle cx="38" cy="16" r="5" fill="#ffbd2e"/>
+  <circle cx="56" cy="16" r="5" fill="#28c840"/>
+
+  <!-- Title -->
+  <text x="30" y="56" fill="#28c840" font-size="15" font-weight="700">Claude in Chrome (Beta)</text>
+
+  <!-- Description -->
+  <text x="30" y="86" fill="#c8c4ba" font-size="12">Claude in Chrome works with the Chrome extension to let you control</text>
+  <text x="30" y="102" fill="#c8c4ba" font-size="12">your browser directly from Claude Code. Navigate websites, fill forms,</text>
+  <text x="30" y="118" fill="#c8c4ba" font-size="12">capture screenshots, record GIFs, and debug with console logs.</text>
+
+  <!-- Status -->
+  <text x="30" y="156" fill="#c8c4ba" font-size="13">Status: </text>
+  <text x="100" y="156" fill="#28c840" font-size="13" font-weight="600">Connected</text>
+
+  <!-- Extension -->
+  <text x="30" y="176" fill="#c8c4ba" font-size="13">Extension: </text>
+  <text x="130" y="176" fill="#28c840" font-size="13" font-weight="600">Installed</text>
+
+  <!-- Menu options -->
+  <text x="42" y="210" fill="#ffffff" font-size="13" font-weight="600">Manage permissions</text>
+  <text x="42" y="232" fill="#c8c4ba" font-size="13">Reconnect extension</text>
+  <text x="42" y="254" fill="#c8c4ba" font-size="13">Enabled by default: Yes</text>
+
+  <!-- Usage -->
+  <text x="30" y="292" fill="#ffbd2e" font-size="12">Usage: </text>
+  <text x="88" y="292" fill="#c8c4ba" font-size="12">claude --chrome</text>
+  <text x="240" y="292" fill="#c8c4ba" font-size="12">or</text>
+  <text x="264" y="292" fill="#c8c4ba" font-size="12">claude --no-chrome</text>
+
+  <!-- Permissions note -->
+  <text x="30" y="326" fill="#8a867a" font-size="11">Site-level permissions are inherited from the Chrome extension.</text>
+  <text x="30" y="342" fill="#8a867a" font-size="11">Manage permissions in the Chrome extension settings to control</text>
+  <text x="30" y="358" fill="#8a867a" font-size="11">which sites Claude can browse, click, and type on.</text>
+
+  <!-- Learn more -->
+  <text x="30" y="390" fill="#8a867a" font-size="11">Learn more: </text>
+  <text x="118" y="390" fill="#60a5fa" font-size="11">https://code.claude.com/docs/en/chrome</text>
+</svg>

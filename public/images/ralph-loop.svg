@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" fill="none">
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, sans-serif; }
+    </style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="240" rx="16" fill="#0a0a14"/>
+
+  <!-- 6 evenly spaced circles: cx = 80, 224, 368, 512, 656, 740 — but let's do even: 80, 224, 368, 512, 656, 740 is uneven. Better: margin 60, spacing 136 → 60, 196, 332, 468, 604, 740 -->
+  <!-- Even spacing: 6 items across 800px. Usable width 700 (50px margin each side). Spacing = 700/5 = 140. Centers: 50, 190, 330, 470, 610, 750 -->
+
+  <!-- Title -->
+  <text x="400" y="32" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="15" font-weight="500">What I put in my RALPH loop:</text>
+
+  <!-- idea - lightbulb -->
+  <circle cx="70" cy="88" r="32" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <path d="M63 82c0-4.4 3.1-8 7-8s7 3.6 7 8c0 2.8-1.6 5.2-4 6.5V92a1 1 0 01-1 1h-4a1 1 0 01-1-1v-3.5c-2.4-1.3-4-3.7-4-6.5z" fill="#fbbf24" opacity="0.9"/>
+  <rect x="67" y="94" width="6" height="2" rx="1" fill="#fbbf24" opacity="0.6"/>
+  <text x="70" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="13" font-weight="500">idea</text>
+
+  <!-- Connector -->
+  <line x1="102" y1="88" x2="184" y2="88" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- PRD - document -->
+  <circle cx="216" cy="88" r="32" fill="rgba(255,255,255,0.09)" stroke="rgba(255,255,255,0.28)" stroke-width="1.5"/>
+  <rect x="205" y="76" width="16" height="20" rx="2" fill="#a78bfa" opacity="0.9"/>
+  <rect x="209" y="81" width="8" height="1.5" rx="0.5" fill="#0a0a14" opacity="0.5"/>
+  <rect x="209" y="84.5" width="8" height="1.5" rx="0.5" fill="#0a0a14" opacity="0.5"/>
+  <rect x="209" y="88" width="5" height="1.5" rx="0.5" fill="#0a0a14" opacity="0.5"/>
+  <text x="216" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="13" font-weight="600">PRD</text>
+
+  <!-- Connector -->
+  <line x1="248" y1="88" x2="330" y2="88" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- code - angle brackets -->
+  <circle cx="362" cy="88" r="32" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <text x="362" y="94" text-anchor="middle" fill="#22d3ee" font-size="20" font-weight="600">&lt;/&gt;</text>
+  <text x="362" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="13" font-weight="500">code</text>
+
+  <!-- Connector -->
+  <line x1="394" y1="88" x2="476" y2="88" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- test - flask -->
+  <circle cx="508" cy="88" r="32" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <path d="M504 78v8l-5 10a2 2 0 001.7 3h14.6a2 2 0 001.7-3l-5-10v-8" fill="none" stroke="#4ade80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="502" y1="78" x2="514" y2="78" stroke="#4ade80" stroke-width="2" stroke-linecap="round"/>
+  <text x="508" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="13" font-weight="500">test</text>
+
+  <!-- Connector -->
+  <line x1="540" y1="88" x2="622" y2="88" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+
+  <!-- fix - wrench -->
+  <circle cx="654" cy="88" r="32" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.18)" stroke-width="1.5"/>
+  <g transform="translate(654,88)">
+    <!-- wrench shape -->
+    <path d="M-4,-10 C-8,-8 -9,-3 -7,1 L3,11 C4,12 6,12 7,11 C8,10 8,8 7,7 L-3,-3 C-1,-7 -2,-9 -4,-10 Z" fill="#f87171" opacity="0.9"/>
+    <!-- wrench head notch -->
+    <path d="M-6,-8 L-3,-5 L-1,-7 L-4,-10 C-5,-9 -6,-8 -6,-8 Z" fill="#0a0a14" opacity="0.4"/>
+  </g>
+  <text x="654" y="136" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="13" font-weight="500">fix</text>
+
+  <!-- Connector -->
+  <line x1="686" y1="88" x2="768" y2="88" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+  <!-- Arrow on last connector looping back -->
+  <path d="M760 88 C 780 88, 790 70, 790 55 C 790 35, 770 25, 750 25 L 90 25 C 60 25, 50 35, 50 55 C 50 65, 55 72, 62 76" stroke="rgba(255,255,255,0.12)" stroke-width="1.5" fill="none" stroke-dasharray="4 3"/>
+  <polygon points="58,73 67,78 63,80" fill="rgba(255,255,255,0.2)"/>
+
+  <!-- repeat - circular arrows -->
+  <!-- Skipping circle for repeat, using the loop-back arrow instead -->
+
+  <!-- Explanations - left column -->
+  <text x="60" y="168" text-anchor="start" fill="#fbbf24" font-size="11.5" font-weight="500">idea</text>
+  <text x="100" y="168" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="118" y="168" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">Brainstorm with Claude</text>
+
+  <text x="60" y="188" text-anchor="start" fill="#a78bfa" font-size="11.5" font-weight="500">PRD</text>
+  <text x="100" y="188" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="118" y="188" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">AI generates test-driven tasks</text>
+
+  <text x="60" y="208" text-anchor="start" fill="#22d3ee" font-size="11.5" font-weight="500">code</text>
+  <text x="100" y="208" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="118" y="208" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">Claude implements each task</text>
+
+  <!-- Explanations - right column -->
+  <text x="430" y="168" text-anchor="start" fill="#4ade80" font-size="11.5" font-weight="500">test</text>
+  <text x="470" y="168" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="488" y="168" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">Auto-runs tests &amp; hooks</text>
+
+  <text x="430" y="188" text-anchor="start" fill="#f87171" font-size="11.5" font-weight="500">fix</text>
+  <text x="470" y="188" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="488" y="188" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">Retries with error context</text>
+
+  <text x="430" y="208" text-anchor="start" fill="#60a5fa" font-size="11.5" font-weight="500">repeat</text>
+  <text x="470" y="208" text-anchor="start" fill="rgba(255,255,255,0.35)" font-size="11.5">→</text>
+  <text x="488" y="208" text-anchor="start" fill="rgba(255,255,255,0.65)" font-size="11.5">Learns and improves each loop</text>
+</svg>

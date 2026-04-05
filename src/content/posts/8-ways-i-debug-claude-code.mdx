@@ -1,0 +1,215 @@
+---
+title: "8 Different Techniques to Debug Claude Code"
+description: "When Claude is failing, the problem is context, not intelligence. Here are the eight techniques I actually use to fix it."
+date: 2026-04-03
+tags: [claude-code, ai, debugging]
+image: "/images/8-ways-debug-claude-code.svg"
+---
+
+import ContextMeter from '../../components/diagrams/debugging/ContextMeter';
+import TechniqueMap from '../../components/diagrams/debugging/TechniqueMap';
+import EvidenceChain from '../../components/diagrams/debugging/EvidenceChain';
+import DebugLoop from '../../components/diagrams/debugging/DebugLoop';
+import SpecDelta from '../../components/diagrams/debugging/SpecDelta';
+import WriterReviewer from '../../components/diagrams/debugging/WriterReviewer';
+import Callout from '../../components/diagrams/Callout';
+import TerminalBanner from '../../components/diagrams/debugging/TerminalBanner';
+import GoodBadTerminal from '../../components/diagrams/debugging/GoodBadTerminal';
+import Terminal from '../../components/diagrams/Terminal';
+
+## When Claude loses the plot, the fix is usually you
+
+I've been building with Claude Code daily for months now. The single most useful thing I've learned is this: when Claude is failing, the problem is context, not intelligence. Claude can't see what you can see. **Your job isn't to tell Claude to try harder. Your job is to show Claude what it's missing.**
+
+These are the eight techniques that get me unstuck when coding with Claude.
+
+<TechniqueMap client:only="react" />
+
+## 1. Feed Claude the Evidence
+
+<EvidenceChain client:only="react" />
+
+### Terminal
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<GoodBadTerminal client:only="react" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The instinct when something breaks is to describe the problem. *"the login page is broken."*
+
+Don't do this.
+
+Point Claude at the evidence directly. Send Claude the terminal output, paste a screenshot, or let Claude check the browser itself with [Claude in Chrome](https://code.claude.com/docs/en/chrome).
+
+Claude is better at diagnosing real errors than hypothetical ones. Every layer of interpretation you add is a layer where information gets lost. It also costs you tokens. When Claude has to guess what's wrong, it reads files, forms hypotheses, makes edits, runs into the same problem, and tries again. That's expensive.
+
+**A vague prompt can burn through 10x the tokens of a specific one because Claude is doing detective work you could have skipped by sharing the evidence upfront.**
+
+</div>
+</div>
+
+### Screenshots
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load imageLabel="[Image #1]" lines={[
+  { type: 'prompt', content: 'the sidebar overlaps main content on mobile' },
+  { type: 'text', content: "Can you paste a screenshot? I'll diagnose from the layout directly." },
+]} cwd="~/my-app" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+Claude is multimodal. When the UI is broken, paste a screenshot with Ctrl+V. When a page layout is wrong, drag the image into the prompt. You'll get a better response from "here's what it looks like" than from "the sidebar is overlapping the main content on mobile."
+
+I use this more than anything else. It is incredibly useful and more efficient than describing every detail.
+
+</div>
+</div>
+
+### Claude in Chrome
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load showHeader={false} showInput={false} showFooter={false} lines={[
+  { type: 'heading', content: 'Claude in Chrome (Beta)' },
+  { type: 'muted', content: 'Claude in Chrome works with the Chrome extension to let you' },
+  { type: 'muted', content: 'control your browser directly from Claude Code.' },
+  { type: 'status', content: 'Status: Connected', color: '#28c840' },
+  { type: 'status', content: 'Extension: Installed', color: '#28c840' },
+  { type: 'menu-active', content: 'Manage permissions' },
+  { type: 'menu', content: 'Reconnect extension' },
+  { type: 'menu', content: 'Enabled by default: Yes' },
+  { type: 'hint', content: 'Enter to confirm · Esc to cancel' },
+]} />
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'login is broken. open localhost:3000 and check the console for errors' },
+  { type: 'text', content: "I'll check the browser directly." },
+  { type: 'action', content: 'Navigate to localhost:3000/login' },
+  { type: 'action', content: 'Read console → Error: 500 on /api/auth/callback' },
+  { type: 'text', content: 'The auth callback redirect runs outside a server action context.' },
+  { type: 'action', content: 'Edit src/app/api/auth/callback/route.ts' },
+]} />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The power version. Run `claude --chrome` and Claude can navigate your browser, click through your UI, read console errors, and take screenshots on its own. You stop being the middleman. Claude sees the problem directly, in your real browser with your real login sessions.
+
+Install the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn), restart Claude Code, and run `/chrome` to connect it.
+
+
+</div>
+</div>
+
+I use all three constantly:
+
+- **Terminal output** for backend work
+- **Screenshots** for quick UI bugs
+- **Claude in Chrome** when I need Claude to see the browser for itself
+
+Same instinct each time: give Claude the raw data, not my interpretation of it.
+
+## 2. Build a Source of Truth File
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load lines={[]} inputLines={[
+  'Before we go further, research best practices for implementing [feature]. Search the web, check the docs, find examples, and write a source of truth file to docs/plans/[feature-name].md.',
+  'Include: 1) best practices and patterns from your research, 2) how [feature] should work end to end, 3) the files involved and their responsibilities, 4) every approach we\'ve tried so far and why it failed, 5) what we know works.',
+]} cwd="~/[project]" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The longest debugging sessions aren't hard problems. They're circles. Claude tries something, it fails, context compresses, and Claude tries the same thing again.
+
+The fix is simple: make Claude write it down. Before I start any feature, I give Claude one prompt.
+
+That file is now a persistent source of truth that survives context compression. When Claude starts going in circles, point it back at the file. It re-reads the spec, sees the failed attempts, and stops repeating them.
+
+Files outlive context. Your conversation gets summarized and compressed as it grows. But a markdown file in the repo stays exactly as you wrote it. Claude can `Read` it fresh at any point and get the full picture back.
+
+I keep these in `docs/plans/` or just a `NOTES.md` at the project root. Cheap to create, saves hours of circular debugging.
+
+</div>
+</div>
+
+## 3. Stop and Explain
+
+This is the move when Claude is looping. It's tried three things, none worked, and it's about to try a fourth variation of the same approach.
+
+<DebugLoop client:only="react" />
+
+The prompt: "Stop trying to fix this. Explain what you think the root cause is, what you've already tried and why it didn't work, and what information you're missing."
+
+Claude in fix mode is pattern-matching against symptoms. Claude in explain mode reasons about causation. It's a different cognitive mode. I'd say half the time, Claude's explanation immediately reveals either the real issue or the gap in its understanding. Then I can fill that gap instead of watching it guess.
+
+When the problem is deep, I pair this with context management. Have Claude dump its current understanding to a markdown file, `/clear` the conversation, start fresh with just that file. A clean context with curated state beats a long conversation with accumulated noise.
+
+For the really thorny ones: "think hard about why this keeps failing" triggers extended thinking, about 10,000 tokens of reasoning instead of the default 4,000. Sometimes Claude just needs more room to think.
+
+## 4. Look at It Holistically
+
+Claude follows the stack trace. Error in file A calls file B calls file C, so it fixes C. But sometimes the real problem is somewhere else entirely. The data model is wrong. The abstraction leaks. The feature was built on an assumption that stopped being true two sprints ago.
+
+Claude won't see this if you point it at the error.
+
+The move: zoom out. "Read these five files and explain the data flow end to end." Or: "What assumptions is this code making that might be wrong?" Or even: "Forget the error message. What's this feature supposed to do, and does the code actually do that?"
+
+<Callout client:only="react" text="Claude fails because it lacks visibility, not intelligence. When it can only see the file with the error, it optimizes locally. When it can see the whole flow, it often spots the real issue on the first pass." />
+
+This is probably my most-used technique. It's also the one that feels least like debugging and most like engineering. You're not chasing a bug. You're understanding a system.
+
+## 5. Write the Spec, Then the Delta
+
+When I'm deep in a bug and nothing is working, I stop and write down how the thing *should* work. Not the fix. The correct behavior. What should happen when, in what order, with what edge cases.
+
+Then I hand that to Claude: "Compare the current implementation against this spec and fix only the differences."
+
+<SpecDelta client:only="react" />
+
+This reframes the entire conversation. Instead of "something is broken, figure it out," Claude gets "here's what correct looks like, close the gap." It's a much easier problem. The spec becomes the source of truth instead of Claude's accumulated guesses about what I want.
+
+Sometimes I write the spec myself. Sometimes I have Claude draft it and I edit. Either way, the spec gets reviewed before any code changes happen. This is the mid-debug version of test-driven development: define "right" first, then make the code match.
+
+## 6. Write the Tests First
+
+Claude's default workflow is: write code, then write tests that validate the code it wrote. This is backwards. The tests end up testing Claude's implementation, not your intent.
+
+Flip it. Describe the behavior you want. Have Claude write failing tests. Review those tests carefully. Only then let Claude write the implementation.
+
+This prevents the death spiral I've seen too many times: Claude writes code with a subtle bug, writes tests that pass because they test the buggy behavior, then you're stuck with green tests and broken software. When the tests come first, they encode what you actually wanted. Claude implements against your intent, not its own assumptions.
+
+I don't do this for every task. But for anything with complex logic or edge cases, TDD with Claude is dramatically more reliable than the alternative. There's even an open-source tool called [tdd-guard](https://github.com/nizos/tdd-guard) that enforces TDD cycles with Claude Code, if you want guardrails.
+
+## 7. Fresh Eyes
+
+Confirmation bias hits Claude the same way it hits people. A session that's been working on a problem for 30 minutes has built up assumptions, tried approaches, accumulated context that makes it blind to certain things. A fresh session looking at the same code sees it differently.
+
+<WriterReviewer client:only="react" />
+
+I use the writer/reviewer pattern: one Claude session writes, a separate session reviews the diff. The reviewer has no investment in the approach. It catches things the writer can't see anymore.
+
+You can also do this with custom agents in `.claude/agents/` that have review-specific instructions. Or with subagents that handle heavy codebase exploration in a separate context so the main session stays clean.
+
+Boris Cherny, who created Claude Code, runs five or more parallel terminal sessions. The pattern: let each session own one concern. Don't overload a single context window with everything.
+
+## 8. Plan Before You Act
+
+Press **Shift+Tab** to toggle Plan Mode. Claude analyzes without making changes.
+
+This is the technique I wish I'd learned first. When a bug is complex, the instinct is to let Claude start fixing immediately. Plan Mode forces a different sequence: Claude reads the code, proposes an approach, and you go back and forth until you actually agree on what should happen. Only then do you switch to auto-accept and let it execute.
+
+The payoff is avoiding the most common failure mode: Claude patches the symptom, not the cause. If a test fails in file A but the real bug is in file B, Claude in normal mode will edit file A six times before you realize. In Plan Mode, you catch this in the first exchange because you're reviewing the reasoning, not the code.
+
+Boris Cherny starts most sessions in Plan Mode. I've started doing the same for anything non-trivial. It feels slower. It's faster.
+
+---
+
+The through-line across all eight: debugging Claude is not about making Claude smarter. It's about making the problem visible. Every technique here is a way of showing Claude something it couldn't see, giving it data it didn't have, or clearing out noise so it can focus.
+
+<Callout client:only="react" text="Debugging is the most creative part of engineering. It's detective work: reconstructing what happened from incomplete evidence, forming hypotheses, testing them." source="Bryan Cantrill, CTO of Oxide Computer" />
+
+Debugging Claude is the same work, with one twist. Your partner in the investigation is also the system you're investigating. You're debugging with the thing you're debugging.
+
+That's what makes it interesting. And once you stop treating Claude's failures as frustrating and start treating them as informational, the whole experience changes. Claude looping isn't Claude being broken. It's Claude telling you it can't see what it needs to see. Your job is to figure out what that is.
