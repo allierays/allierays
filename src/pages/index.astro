@@ -60,7 +60,7 @@ const remaining = posts.slice(5);
             <li class="post-card">
               {post.data.image && (
                 <a href={`/posts/${post.id}`} class="post-card-image">
-                  <img src={post.data.image} alt="" />
+                  <img src={post.data.image} alt={post.data.title} />
                 </a>
               )}
               <div class="post-card-content">

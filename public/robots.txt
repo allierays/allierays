@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://allierays.com/sitemap-index.xml

@@ -13,14 +13,11 @@ const mono = "'JetBrains Mono', monospace";
 const display = "'Chiron Go Round TC', system-ui, sans-serif";
 
 const techniques = [
-  { num: '1', name: 'Feed Claude the Evidence', desc: 'Terminal, screenshots, Chrome', color: TEAL },
-  { num: '2', name: 'Build a Source of Truth File', desc: 'Persistent context that survives', color: CORAL },
-  { num: '3', name: 'Stop and Explain', desc: 'Diagnose, don\'t fix', color: NAVY },
-  { num: '4', name: 'Look at It Holistically', desc: 'Zoom out from the stack trace', color: SAGE },
-  { num: '5', name: 'Spec, Then Delta', desc: 'Define right, close the gap', color: CORAL },
-  { num: '6', name: 'Write Tests First', desc: 'Encode intent before code', color: SAGE },
-  { num: '7', name: 'Fresh Eyes', desc: 'Separate writer and reviewer', color: TEAL },
-  { num: '8', name: 'Plan Before You Act', desc: 'Agree on approach, then execute', color: NAVY },
+  { num: '1', name: 'Feed Claude the Evidence', heading: '1. Feed Claude the Evidence', desc: 'Terminal, screenshots, Chrome', color: TEAL },
+  { num: '2', name: 'Build a Source of Truth File', heading: '2. Build a Source of Truth File', desc: 'Persistent context that survives', color: CORAL },
+  { num: '3', name: 'Think Holistically', heading: '3. Think Holistically', desc: 'Right solution, not the fast one', color: NAVY },
+  { num: '4', name: 'Use Agent Teams', heading: '4. Use Agent Teams', desc: 'Parallel agents, focused context', color: TEAL },
+  { num: '5', name: 'Build Skills', heading: '5. Build Skills for Repeated Problems', desc: 'Automate what you repeat', color: SAGE },
 ];
 
 export default function TechniqueMap() {
@@ -53,25 +50,26 @@ export default function TechniqueMap() {
           marginBottom: 16,
           textAlign: 'center' as const,
         }}>
-          Eight Techniques to Debug Claude Code
+          Five Techniques to Debug Claude Code
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(4, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(5, 1fr)',
           gap: 12,
         }}>
           {techniques.map((t, i) => (
             <motion.a
               key={t.num}
-              href={`#${t.num}-${t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '')}`}
+              href={`#${t.heading.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-$/, '')}`}
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
               style={{
                 display: 'flex',
-                alignItems: 'flex-start',
-                gap: 12,
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 8,
                 padding: '14px 16px',
                 borderRadius: 6,
                 border: `1px solid ${MARBLE}`,

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" fill="none">
+  <rect width="800" height="450" rx="0" fill="#fafaf7"/>
+
+  <!-- Agent box -->
+  <rect x="80" y="30" width="640" height="390" rx="12" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="8 4" fill="none"/>
+  <text x="400" y="72" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="28" font-weight="600" fill="#35656e">Agent</text>
+
+  <!-- Query node -->
+  <rect x="110" y="195" width="100" height="44" rx="6" fill="#1e2a4a"/>
+  <text x="160" y="222" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" fill="#fafaf7">Query</text>
+
+  <!-- Arrow Query -> LLM -->
+  <line x1="210" y1="217" x2="265" y2="217" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="263,212 273,217 263,222" fill="#1e2a4a"/>
+
+  <!-- LLM diamond -->
+  <polygon points="320,177 370,217 320,257 270,217" stroke="#35656e" stroke-width="2" fill="none"/>
+  <text x="320" y="222" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" font-weight="500" fill="#1e2a4a">LLM</text>
+
+  <!-- Loop arrow (curved, below diamond) -->
+  <path d="M 295,257 Q 295,310 270,310 Q 220,310 220,260 Q 220,240 240,230" stroke="#35656e" stroke-width="1.5" stroke-dasharray="5 3" fill="none"/>
+  <polygon points="238,234 244,226 248,236" fill="#35656e"/>
+  <text x="245" y="328" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="13" fill="#35656e" font-style="italic">loop</text>
+
+  <!-- Arrow LLM -> Tools -->
+  <line x1="370" y1="200" x2="430" y2="155" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="426,150 435,155 427,160" fill="#1e2a4a"/>
+  <line x1="370" y1="217" x2="430" y2="217" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="428,212 438,217 428,222" fill="#1e2a4a"/>
+  <line x1="370" y1="234" x2="430" y2="279" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="426,274 435,279 427,284" fill="#1e2a4a"/>
+
+  <!-- Tool boxes -->
+  <rect x="438" y="133" width="110" height="44" rx="6" stroke="#b5b0a3" stroke-width="1.5" fill="#ffffff"/>
+  <text x="493" y="160" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" fill="#1e2a4a">Tool A</text>
+
+  <rect x="438" y="195" width="110" height="44" rx="6" stroke="#b5b0a3" stroke-width="1.5" fill="#ffffff"/>
+  <text x="493" y="222" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" fill="#1e2a4a">Tool B</text>
+
+  <rect x="438" y="257" width="110" height="44" rx="6" stroke="#b5b0a3" stroke-width="1.5" fill="#ffffff"/>
+  <text x="493" y="284" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" fill="#1e2a4a">Tool C</text>
+
+  <!-- Arrow Tools -> Response -->
+  <line x1="548" y1="155" x2="590" y2="200" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <line x1="548" y1="217" x2="590" y2="217" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <line x1="548" y1="279" x2="590" y2="234" stroke="#1e2a4a" stroke-width="2" stroke-dasharray="6 3"/>
+  <polygon points="588,212 598,217 588,222" fill="#1e2a4a"/>
+
+  <!-- Response node -->
+  <rect x="600" y="195" width="110" height="44" rx="6" fill="#1e2a4a"/>
+  <text x="655" y="222" text-anchor="middle" font-family="'Source Serif 4', Georgia, serif" font-size="15" fill="#fafaf7">Response</text>
+</svg>

@@ -528,6 +528,90 @@ a:hover {
 
 }
 
+/* ── Share bar ── */
+.share-bar {
+  max-width: 1200px;
+  margin: 3rem auto 0;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--marble);
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.share-label {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  flex-shrink: 0;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  border: 1px solid var(--marble);
+  background: var(--bg-card);
+  color: var(--ink-light);
+}
+
+.share-btn:hover {
+  border-color: var(--navy-border);
+  color: var(--ink);
+}
+
+.share-btn--linkedin:hover {
+  background: #0a66c2;
+  color: #fff;
+  border-color: #0a66c2;
+}
+
+.share-btn--x:hover {
+  background: var(--ink);
+  color: #fff;
+  border-color: var(--ink);
+}
+
+.share-btn--copy {
+  font-family: var(--font-display);
+}
+
+@media (max-width: 768px) {
+  .share-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1.5rem var(--page-padding-x);
+  }
+
+  .share-buttons {
+    width: 100%;
+  }
+
+  .share-btn {
+    flex: 1;
+    justify-content: center;
+    font-size: 0.75rem;
+    padding: 8px 10px;
+  }
+}
+
 /* ── Footer ── */
 .site-footer {
   padding: 2rem var(--page-padding-x);

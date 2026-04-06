@@ -1,10 +1,10 @@
 ---
 title: "Agentic Workflows, Agents, and Multi-Agent Systems"
 shortTitle: "Agents vs Workflows"
-description: "When to use each pattern and why most teams pick wrong."
+description: "From fully controlled to fully autonomous. How to pick the right pattern."
 date: 2026-04-06
 tags: [agentic-architecture, applied-ai]
-image: "/images/agents-vs-workflows-banner.png"
+image: "/images/agents-vs-workflows-thumb.svg"
 ---
 
 import Banner from '../../components/diagrams/Banner';
@@ -12,20 +12,31 @@ import ComparisonTable from '../../components/diagrams/ComparisonTable';
 import { Workflow, AgenticWorkflow, Agent, MultiAgent } from '../../components/diagrams/PatternDiagram';
 import DecisionTree from '../../components/diagrams/DecisionTree';
 import Callout from '../../components/diagrams/Callout';
+import DecisionCards from '../../components/diagrams/DecisionCards';
 
-<div class="post-banner">
-  <Banner client:only="react" />
+<div style="position: relative; padding-bottom: 56.25%; height: 0; width: 100%; margin: 0 0 2rem 0;">
+<iframe src="https://www.youtube-nocookie.com/embed/F_x3peVqzPI?rel=0&vq=hd1080" title="Agents vs Workflows" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"></iframe>
 </div>
+
+## Start simple
 
 Most teams building with LLMs jump straight to agents. I did too. After building a multi-agent orchestrator and pushing it to production, these are the things I've learned: **the right pattern depends on the problem, and agents are rarely the right first choice.**
 
 Anthropic's engineering team [says the same thing](https://www.anthropic.com/engineering/building-effective-agents): start simple, add complexity only when you have to.
 
-## When to use each pattern
+## Compare and contrast
+
+<div class="post-banner">
+  <Banner client:only="react" />
+</div>
 
 <ComparisonTable client:only="react" />
 
-## Workflow
+## Pattern Breakdown
+
+### Workflow
+
+*You define the path. The LLM is one step in it.*
 
 <Workflow client:only="react" />
 
@@ -35,19 +46,25 @@ Every step is defined in code before anything runs. You decide the path. The LLM
 
 **In practice:** A customer signs up. Your system verifies their email, calls an LLM to generate a personalized welcome message based on their profile, creates the account, and sends the email. Every customer hits the same steps in the same order. If the email verification fails, you know exactly where it broke. You can tell your team exactly how much each signup costs in API calls because the path never changes. This is where most production AI should live.
 
-## Agentic Workflow
+### Agentic Workflow
+
+*You define the structure. The LLM decides when to retry.*
 
 <AgenticWorkflow client:only="react" />
 
-A structured flow, but the AI has room to make decisions inside it. Plan, execute, reflect, and loop back if the result isn't good enough. The structure keeps it on track. The AI gives it flexibility. Anthropic's orchestrator-workers and evaluator-optimizer patterns live here.
+A structured flow, but the AI has room to make decisions inside it. Plan, execute, reflect, and loop back if the result isn't good enough. The structure keeps it on track. The AI gives it flexibility.
+
+The LLM might call tools during execution, but you decide which tools are available at each step.
 
 **In practice:** You're building a code review system. The AI reads a pull request, plans which files to focus on, runs linting and security checks, then reflects on the results. If it finds issues, it loops back: re-analyzes the flagged code, generates a more specific review, and checks again. The overall flow is defined (read, check, review) but the AI decides how deep to go and whether to loop. If the first pass is clean, it moves on. If it finds a SQL injection risk, it digs in. This is the sweet spot for teams that have outgrown pure workflows but don't need full agent autonomy.
 
-## Agent
+### Agent
+
+*You give it tools and a system prompt. The LLM decides which tool to use.*
 
 <Agent client:only="react" />
 
-The model decides what to do next. You give it tools and guardrails, not a path. It figures out which tool to call, reads the result, and decides the next step on its own.
+The model decides what to do next. You give it a set of tools and guardrails, not a path. It chooses which tool to call, reads the result, and decides the next step on its own. This is the key difference from an agentic workflow: instead of you defining when tools get called, the LLM picks from the full toolbox on every turn.
 
 **In practice:** A customer asks your support agent "I was charged twice for my last order." The agent doesn't follow a script. It decides to look up the customer's account, finds the order, checks the payment history, sees two charges, determines one is a duplicate, and initiates a refund. If the customer had asked a different question, the agent would have taken a completely different path.
 
@@ -55,7 +72,9 @@ The model decides what to do next. You give it tools and guardrails, not a path.
 
 The thing that separates good agents from bad ones is tool design. If your "lookup order" tool returns clean, structured data, the agent makes good decisions. If it returns a messy blob, the agent gets confused and picks the wrong next step. A poorly described tool will send your agent down the wrong path before it even starts reasoning. Spend your time making tools obvious to use, not picking between agent frameworks.
 
-## Multi-Agent
+### Multi-Agent
+
+*Multiple agents, each with their own prompt and tools.*
 
 <MultiAgent client:only="react" />
 
@@ -67,7 +86,7 @@ The cost is real. Anthropic's own multi-agent research system performed signific
 
 **In practice:** A company needs to process a large contract. One agent can't do this well because the tasks require different reasoning. A document extraction agent pulls out key terms, dates, and obligations. A compliance agent checks those terms against regulatory requirements. A risk assessment agent flags problematic clauses based on historical litigation data. Each agent has different tools, different system prompts, and different expertise. The extraction agent needs OCR and parsing tools. The compliance agent needs access to regulatory databases. The risk agent needs case law. Cramming all of that into one prompt would dilute every capability. The orchestrator coordinates the handoffs and assembles the final report.
 
-<Callout text="Multi-agent systems consume roughly 15x more tokens than a single agent. That tradeoff is worth it when quality matters. It's not worth it when one well-prompted agent gets you 90% there." client:only="react" />
+<Callout text="In Anthropic's research system, multi-agent consumed roughly 15x the tokens of a single chat. Your numbers will vary, but token costs multiply fast. Make sure the quality gain justifies the spend." client:only="react" />
 
 Each subagent needs a clear objective, defined boundaries, and an expected output format. Without that clarity, agents duplicate each other's work or leave gaps. The orchestrator's job isn't just delegation. It's memory management, preventing token overflow, and knowing when to stop.
 
@@ -75,13 +94,7 @@ Each subagent needs a clear objective, defined boundaries, and an expected outpu
 
 There's no universal answer. But here are the questions I ask myself every time I'm building something new.
 
-**Do I know the steps?** If I can whiteboard the flow before writing any code, it's a workflow. Most of the time, this is the answer. Don't add autonomy you don't need.
-
-**Do I need the AI to figure things out inside the flow?** If the steps are clear but the AI needs to decide how deep to go, whether to retry, or which subtask to prioritize, that's an agentic workflow. You keep the structure. The AI gets room to think.
-
-**Is the task open-ended?** If I genuinely can't predict what the AI will need to do, I build an agent. But I make sure the tools are well-designed first, because the agent is only as good as what you give it to work with.
-
-**Does one agent's context get in the way of another's?** This is the real test for multi-agent. If the system prompt for one role conflicts with another, or the context window gets too crowded to reason well, split them up. But try one agent first. The coordination cost of multi-agent is high, and every handoff between agents loses information.
+<DecisionCards client:only="react" />
 ## References
 
 - [Building Effective Agents](https://www.anthropic.com/engineering/building-effective-agents) - Anthropic's guide to workflow patterns, agent design, and when to use each

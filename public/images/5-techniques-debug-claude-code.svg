@@ -29,7 +29,7 @@
   "/>
 
   <!-- Title -->
-  <text x="400" y="270" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="700">8 Techniques to Debug Claude Code</text>
+  <text x="400" y="270" text-anchor="middle" fill="#ffffff" font-size="22" font-weight="700">5 Techniques to Debug Claude Code</text>
 
   <!-- Subtitle -->
   <text x="400" y="300" text-anchor="middle" fill="#5a5750" font-size="14">The problem is context, not intelligence.</text>

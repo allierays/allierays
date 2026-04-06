@@ -41,7 +41,7 @@ function WorkflowDiagram() {
       <Arrow x1={100} y1={46} x2={130} y2={46} color={NAVY} />
       <Box x={130} y={30} w={80} h={32} label="Step 1" />
       <Arrow x1={210} y1={46} x2={240} y2={46} color={NAVY} />
-      <Box x={240} y={30} w={80} h={32} label="Step 2" />
+      <Box x={240} y={30} w={80} h={32} label="LLM" />
       <Arrow x1={320} y1={46} x2={350} y2={46} color={NAVY} />
       <Box x={350} y={30} w={80} h={32} label="Step 3" />
       <Arrow x1={430} y1={46} x2={460} y2={46} color={NAVY} />
@@ -65,7 +65,7 @@ function AgenticWorkflowDiagram() {
       <Box x={455} y={30} w={80} h={32} label="Output" fill={SAGE} stroke={SAGE} textColor="#fff" />
       {/* Loop */}
       <path d="M 385,62 Q 385,100 267,100 Q 163,100 163,66" fill="none" stroke={SAGE} strokeWidth={1.2} strokeDasharray="5 3" markerEnd={`url(#m-${SAGE.slice(1)})`} />
-      <text x={270} y={115} textAnchor="middle" fontFamily={mono} fontSize={9} fill={SAGE}>retry if needed</text>
+      <text x={270} y={115} textAnchor="middle" fontFamily={mono} fontSize={9} fill={SAGE}>LLM loop — retry if needed</text>
     </svg>
   );
 }

@@ -2,32 +2,48 @@
 import Base from '../layouts/Base.astro';
 ---
 
-<Base title="Projects — Allie Rays" description="Things I've built: Content Compass, GOPA, Lumis.">
+<Base title="Projects — Allie Rays" description="Things I've built: Ethos Academy, Agentic Loop, Lumis, Ollama Wellness." fullWidth>
   <section style="margin-top: 2rem;">
-    <h1>Projects</h1>
+    <h1 style="background: linear-gradient(135deg, #1e3a5f 0%, #0891b2 50%, #14b8a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Projects</h1>
 
     <div class="project-list">
       <div class="project">
-        <h2>Content Compass</h2>
-        <p class="project-meta">Go1 · 2024–present · FastAPI, React 19, PostgreSQL, Qdrant</p>
+        <h2><a href="https://github.com/allierays/ethos-academy" target="_blank" rel="noopener">Ethos Academy</a></h2>
+        <p class="project-meta">Python · Claude API · Neo4j · React</p>
         <p>
-          Production AI platform for Go1's 107K+ course catalog. LLM-powered search, vector similarity, AI enrichment pipeline that scores and categorizes content at scale. The first thing I built when I decided Go1 needed an Applied AI team.
+          Every agent learns capability. Few develop character. Ethos Academy scores AI agent messages for honesty, accuracy, and intent across 12 behavioral traits in three dimensions: integrity, logic, and empathy. Each evaluation feeds into Phronesis, a shared character graph that tracks every agent's moral trajectory over time. 214 behavioral indicators mapped to Anthropic's constitutional value hierarchy. Three surfaces: a character development UI, an MCP server with 24 tools, and a REST API with 37 endpoints.
         </p>
       </div>
 
       <div class="project">
-        <h2>GOPA</h2>
-        <p class="project-meta">Go1 · 2024–present · Python, MCP, Slack</p>
+        <h2><a href="https://github.com/allierays/agentic-loop" target="_blank" rel="noopener">Agentic Loop</a></h2>
+        <p class="project-meta">Node.js · Claude Code · CLI</p>
         <p>
-          MCP server and Slack bot with 200+ tools. Connects Outlook, Asana, Salesforce, and Gong through an agentic architecture with workflow routing. Running live in Go1's Slack workspace, handling everything from calendar management to deal intelligence.
+          Autonomous AI coding toolkit for Claude Code. You describe what you want to build. Claude writes a PRD with small, testable stories. Ralph executes each story automatically, coding, testing, and committing in a loop until everything passes. Two-terminal workflow: one for planning and generating PRDs, one for autonomous execution. The loop gets smarter over time through lessons you teach it, your coding DNA profile, and a styleguide that keeps UI consistent.
         </p>
       </div>
 
       <div class="project">
-        <h2>Lumis</h2>
-        <p class="project-meta">Personal · 2025–present · TypeScript, Claude API, Remotion</p>
+        <h2><a href="https://github.com/allierays/lumis" target="_blank" rel="noopener">Lumis</a></h2>
+        <p class="project-meta">TypeScript · Claude API · Remotion · ElevenLabs</p>
         <p>
-          My AI confidant for storytelling. CLI tool and MCP server that lives in an Obsidian vault. Captures daily moments, synthesizes research, finds patterns across experiences, and turns stories into articles, videos, carousels, and diagrams. Built entirely on Claude's stack.
+          Your AI confidant for storytelling. A CLI tool and MCP server that lives in an Obsidian vault. Captures daily moments, identifies the 5-second shift, finds connections across your experiences, and builds a pattern map that visualizes how your life relates over time. Synthesizes research into lessons, challenges your thinking with honest feedback, and turns stories into videos, articles, carousels, and diagrams. The full content flywheel: from living your life to publishing what you learned.
+        </p>
+      </div>
+
+      <div class="project">
+        <h2><a href="https://github.com/allierays/ollama-wellness" target="_blank" rel="noopener">Ollama Wellness</a></h2>
+        <p class="project-meta">Python · FastAPI · Redis · RedisVL · Ollama · LangGraph</p>
+        <p>
+          Can AI agents be intelligent without memory? A side-by-side comparison of stateless and stateful Agentic RAG using Apple Health data. The stateless agent forgets everything between messages. The stateful agent, powered by Redis, stores conversation history, user goals, and tool usage patterns through vector search. Built with Ollama running Qwen 2.5 7B locally. Your health data never leaves your machine.
+        </p>
+      </div>
+
+      <div class="project">
+        <h2><a href="https://github.com/allierays/storylane-qa-editor-agent" target="_blank" rel="noopener">Storylane QA Editor Agent</a></h2>
+        <p class="project-meta">Python · FastAPI · NiceGUI · Playwright · OpenAI</p>
+        <p>
+          AI-powered QA tool for reviewing Storylane product demos. Scrapes demo pages with Playwright, then runs each step through GPT for grammar, best practices, and GTM alignment checks. Built for PreSales teams who maintain dozens of demos and need consistent quality without manual review. Multi-user session isolation, real-time progress tracking, and an interactive chat interface for follow-up questions.
         </p>
       </div>
     </div>
