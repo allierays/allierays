@@ -109,7 +109,7 @@ function MultiAgentSlide() {
     <svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: 'auto', display: 'block' }}>
       <rect width="300" height="200" fill={BG} />
       <Markers />
-      <text x={150} y={30} textAnchor="middle" fontFamily={display} fontSize={12} fill={CORAL} fontWeight={600} letterSpacing="0.08em">MULTI-AGENT</text>
+      <text x={150} y={30} textAnchor="middle" fontFamily={display} fontSize={12} fill={CORAL} fontWeight={600} letterSpacing="0.08em">MULTI-AGENT (MAS)</text>
       <text x={150} y={48} textAnchor="middle" fontFamily={font} fontSize={10} fill={INK_MUTED} fontStyle="italic">Team collaboration</text>
       <Box x={15} y={80} w={60} h={28} label="Task" fill={CORAL} stroke={CORAL} textColor="#fff" />
       <line x1={75} y1={94} x2={95} y2={94} stroke={CORAL} strokeWidth={1.2} markerEnd={`url(#a-${CORAL.slice(1)})`} />
@@ -130,7 +130,7 @@ const slides = [
   { component: WorkflowSlide, color: NAVY, label: 'Workflow' },
   { component: AgenticSlide, color: SAGE, label: 'Agentic' },
   { component: AgentSlide, color: TEAL, label: 'Agent' },
-  { component: MultiAgentSlide, color: CORAL, label: 'Multi-Agent' },
+  { component: MultiAgentSlide, color: CORAL, label: 'Multi-Agent (MAS)' },
 ];
 
 function DesktopBanner() {
@@ -185,7 +185,7 @@ function DesktopBanner() {
       <text x={750} y={195} textAnchor="middle" fontFamily={font} fontSize={8.5} fill={INK_MUTED}>The model decides what to do.</text>
       <text x={750} y={208} textAnchor="middle" fontFamily={font} fontSize={8.5} fill={INK_MUTED}>Flexible and autonomous.</text>
       {/* Multi-Agent */}
-      <text x={1050} y={50} textAnchor="middle" fontFamily={display} fontSize={10} fill={CORAL} fontWeight={600} letterSpacing="0.08em">MULTI-AGENT</text>
+      <text x={1050} y={50} textAnchor="middle" fontFamily={display} fontSize={10} fill={CORAL} fontWeight={600} letterSpacing="0.08em">MULTI-AGENT (MAS)</text>
       <text x={1050} y={64} textAnchor="middle" fontFamily={font} fontSize={8.5} fill={INK_MUTED} fontStyle="italic">Team collaboration</text>
       <Box x={920} y={95} w={58} h={24} label="Task" fill={CORAL} stroke={CORAL} textColor="#fff" fontSize={9.5} />
       <line x1={978} y1={107} x2={993} y2={107} stroke={CORAL} strokeWidth={1.2} markerEnd={`url(#a-${CORAL.slice(1)})`} />

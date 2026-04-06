@@ -57,7 +57,7 @@ const patterns = [
     example: 'Support agent: answers questions, looks up orders, processes refunds',
   },
   {
-    name: 'Multi-Agent',
+    name: 'Multi-Agent (MAS)',
     definition: 'Multiple agents, each with their own prompt and tools.',
     color: CORAL,
     control: 'Models',

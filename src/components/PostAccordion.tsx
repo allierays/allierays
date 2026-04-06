@@ -64,7 +64,7 @@ export default function PostAccordion({ posts }: Props) {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(30,42,74,0.95) 0%, rgba(30,42,74,0.6) 60%, rgba(30,42,74,0.15) 100%)',
+                background: 'linear-gradient(to top, rgba(30,42,74,0.97) 0%, rgba(30,42,74,0.85) 50%, rgba(30,42,74,0.5) 100%)',
               }}
             />
             <div
@@ -106,6 +106,7 @@ export default function PostAccordion({ posts }: Props) {
                   margin: '0.2rem 0 0.35rem',
                   lineHeight: 1.25,
                   letterSpacing: '0.01em',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.5)',
                 }}
               >
                 {post.title}
@@ -122,6 +123,7 @@ export default function PostAccordion({ posts }: Props) {
                   WebkitLineClamp: 2,
                   WebkitBoxOrient: 'vertical',
                   overflow: 'hidden',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.4)',
                 }}
               >
                 {post.description}
@@ -179,8 +181,8 @@ export default function PostAccordion({ posts }: Props) {
                 position: 'absolute',
                 inset: 0,
                 background: isActive
-                  ? 'linear-gradient(to top, rgba(30,42,74,0.95) 0%, rgba(30,42,74,0.7) 55%, rgba(30,42,74,0.15) 100%)'
-                  : 'rgba(30,42,74,0.75)',
+                  ? 'linear-gradient(to top, rgba(30,42,74,0.97) 0%, rgba(30,42,74,0.85) 50%, rgba(30,42,74,0.4) 100%)'
+                  : 'rgba(30,42,74,0.85)',
                 transition: 'background 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
               }}
             />
@@ -264,6 +266,7 @@ export default function PostAccordion({ posts }: Props) {
                   margin: '0.25rem 0 0.5rem',
                   lineHeight: 1.25,
                   letterSpacing: '0.01em',
+                  textShadow: '0 1px 4px rgba(0,0,0,0.5)',
                 }}
               >
                 {post.title}
@@ -276,6 +279,7 @@ export default function PostAccordion({ posts }: Props) {
                   color: 'rgba(255,255,255,0.95)',
                   lineHeight: 1.6,
                   margin: '0 0 0.75rem',
+                  textShadow: '0 1px 3px rgba(0,0,0,0.4)',
                 }}
               >
                 {post.description}

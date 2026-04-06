@@ -5,6 +5,7 @@ description: "From fully controlled to fully autonomous. How to pick the right p
 date: 2026-04-06
 tags: [agentic-architecture, applied-ai]
 image: "/images/agents-vs-workflows-thumb.svg"
+hideHeaderImage: true
 ---
 
 import Banner from '../../components/diagrams/Banner';
@@ -15,7 +16,7 @@ import Callout from '../../components/diagrams/Callout';
 import DecisionCards from '../../components/diagrams/DecisionCards';
 
 <div style="position: relative; padding-bottom: 56.25%; height: 0; width: 100%; margin: 0 0 2rem 0;">
-<iframe src="https://www.youtube-nocookie.com/embed/F_x3peVqzPI?rel=0&vq=hd1080" title="Agents vs Workflows" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/ykQJCey5s7g?rel=0&vq=hd1080" title="Agents vs Workflows" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 8px;"></iframe>
 </div>
 
 ## Start simple
@@ -36,7 +37,7 @@ Anthropic's engineering team [says the same thing](https://www.anthropic.com/eng
 
 ### Workflow
 
-*You define the path. The LLM is one step in it.*
+You define the path. The LLM is one step in it.
 
 <Workflow client:only="react" />
 
@@ -48,7 +49,7 @@ Every step is defined in code before anything runs. You decide the path. The LLM
 
 ### Agentic Workflow
 
-*You define the structure. The LLM decides when to retry.*
+You define the structure. The LLM decides when to retry.
 
 <AgenticWorkflow client:only="react" />
 
@@ -60,7 +61,7 @@ The LLM might call tools during execution, but you decide which tools are availa
 
 ### Agent
 
-*You give it tools and a system prompt. The LLM decides which tool to use.*
+You give it tools and a system prompt. The LLM decides which tool to use.
 
 <Agent client:only="react" />
 
@@ -72,9 +73,9 @@ The model decides what to do next. You give it a set of tools and guardrails, no
 
 The thing that separates good agents from bad ones is tool design. If your "lookup order" tool returns clean, structured data, the agent makes good decisions. If it returns a messy blob, the agent gets confused and picks the wrong next step. A poorly described tool will send your agent down the wrong path before it even starts reasoning. Spend your time making tools obvious to use, not picking between agent frameworks.
 
-### Multi-Agent
+### Multi-Agent (MAS)
 
-*Multiple agents, each with their own prompt and tools.*
+Multiple agents, each with their own prompt and tools.
 
 <MultiAgent client:only="react" />
 
@@ -92,7 +93,7 @@ Each subagent needs a clear objective, defined boundaries, and an expected outpu
 
 ## How to decide
 
-There's no universal answer. But here are the questions I ask myself every time I'm building something new.
+Always pick the simplest pattern that meets your needs. The question is: can you write the control flow yourself, or does the problem require the model to figure it out? Sometimes the model needs to discover which tools to use based on what it finds along the way. You can't hardcode every path in advance. That's when you need more autonomy.
 
 <DecisionCards client:only="react" />
 ## References
@@ -101,5 +102,3 @@ There's no universal answer. But here are the questions I ask myself every time 
 - [How We Built Our Multi-Agent Research System](https://www.anthropic.com/engineering/multi-agent-research-system) - Anthropic's production multi-agent architecture, prompt engineering principles, and lessons learned
 
 ---
-
-*I'm building Applied AI systems at Go1 and documenting what I learn. [Connect on LinkedIn](https://linkedin.com/in/allierays).*

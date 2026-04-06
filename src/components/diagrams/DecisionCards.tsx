@@ -8,27 +8,27 @@ const MARBLE = '#e2e0db';
 
 const decisions = [
   {
-    question: 'Do I know the steps?',
-    answer: 'If you can whiteboard the flow before writing any code, it\'s a workflow. Most of the time, this is the answer. Don\'t add autonomy you don\'t need.',
+    question: 'Can I map the steps?',
+    answer: 'If you can write the control flow yourself, write it. Don\'t hand the model control you don\'t need to. Most of the time, this is the answer.',
     pattern: 'Workflow',
     color: NAVY,
   },
   {
-    question: 'Does the AI need to figure things out inside the flow?',
-    answer: 'If the steps are clear but the AI needs to decide how deep to go, whether to retry, or which subtask to prioritize, that\'s an agentic workflow. You keep the structure. The AI gets room to think.',
+    question: 'Does the workflow need to branch or adapt?',
+    answer: 'The steps are clear, but the workflow needs to branch, retry, or adapt based on what happens. You keep the structure. The model gets room to make decisions within it.',
     pattern: 'Agentic Workflow',
     color: SAGE,
   },
   {
-    question: 'Is the task open-ended?',
-    answer: 'If you genuinely can\'t predict what the AI will need to do, build an agent. But make sure the tools are well-designed first, because the agent is only as good as what you give it to work with.',
+    question: 'Is the task open-ended for the user?',
+    answer: 'The model needs to pick its own tools and path based on what it finds. You can\'t hardcode every route. Make sure the tools are well-designed, because the agent is only as good as what you give it.',
     pattern: 'Agent',
     color: TEAL,
   },
   {
-    question: 'Does one agent\'s context get in the way of another\'s?',
-    answer: 'If the system prompt for one role conflicts with another, or the context window gets too crowded to reason well, split them up. But try one agent first. Token costs multiply fast, and debugging across agents is harder than debugging one.',
-    pattern: 'Multi-Agent',
+    question: 'Is one agent\'s context getting in the way?',
+    answer: 'Split them up only when context from one role conflicts with another. Try one agent first. Token costs multiply fast, and debugging across agents is harder than debugging one.',
+    pattern: 'Multi-Agent (MAS)',
     color: CORAL,
   },
 ];
