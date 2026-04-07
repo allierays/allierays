@@ -1,43 +1,30 @@
-# Astro Starter Kit: Minimal
+<div align="center">
 
-```sh
-npm create astro@latest -- --template minimal
-```
+### Hi, I'm Allie
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Enterprise Solutions Architect / Building Applied AI tools and platforms
 
-## 🚀 Project Structure
+[Website](https://allierays.com) · [LinkedIn](https://linkedin.com/in/allierays) · [X](https://x.com/allierays) · [YouTube](https://youtube.com/@allieray)
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+</div>
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+#### About Me
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+Solutions Architect with 15+ years translating technical concepts into business outcomes. I build with Claude, MCP, and the Anthropic Agent SDK daily.
 
-Any static assets, like images, can be placed in the `public/` directory.
+Background in enterprise security and compliance (FedRAMP, SOC2, HIPAA), cloud architecture, and API integrations. MIT Applied Agentic AI. Four hackathon wins including 1st place at the Redis MCP AI Agents Hackathon and top 30 at Anthropic's Build with Claude.
 
-## 🧞 Commands
+#### What I'm Building
 
-All commands are run from the root of the project, from a terminal:
+- **[Ethos Academy](https://github.com/allierays/ethos-academy)** — Can we teach AI agents integrity? Behavioral scoring using Aristotle's framework and a Neo4j knowledge graph. 12 traits, 214 indicators, 3 dimensions. Built in a week for the Claude Code Hackathon.
+- **[Lumis](https://github.com/allierays/lumis)** — CLI + MCP server for capturing moments, synthesizing research, and producing video content from an Obsidian vault.
+- **[allierays.com](https://allierays.com)** — Writing about Applied AI, agentic architecture, and what actually works in production.
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+#### What I Write About
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Agentic workflows, agents, and multi-agent systems
+- MCP servers and tool-use architecture
+- AI ethics and agent character evaluation
+- Building in production: what failed, what shipped
