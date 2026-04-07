@@ -2,7 +2,7 @@
 
 ### Hi, I'm Allie
 
-Enterprise Solutions Architect / Building Applied AI tools and platforms
+Enterprise PreSales Engineer / Building Applied AI tools and platforms
 
 [Website](https://allierays.com) · [LinkedIn](https://linkedin.com/in/allierays) · [X](https://x.com/allierays) · [YouTube](https://youtube.com/@allieray)
 
