@@ -16,7 +16,6 @@ I build agentic systems, MCP servers, and AI pipelines. Before that, 15 years of
 
 #### What I Write About
 
-- Agentic workflows, agents, and multi-agent systems
-- MCP servers and tool-use architecture
-- AI ethics and agent character evaluation
-- Building in production: what failed, what shipped
+- How to build AI tools that go beyond the demo
+- What actually works when you ship agents to production
+- The gap between knowing about AI and building with it
