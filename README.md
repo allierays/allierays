@@ -14,12 +14,6 @@ Enterprise Solutions Architect / Building Applied AI tools and platforms
 
 I build agentic systems, MCP servers, and AI pipelines. Before that, 15 years of enterprise architecture. MIT Applied Agentic AI. Four hackathon wins including 1st place at the Redis MCP AI Agents Hackathon and top 30 at Anthropic's Build with Claude.
 
-#### What I'm Building
-
-- **[Ethos Academy](https://github.com/allierays/ethos-academy)** — Can we teach AI agents integrity? Behavioral scoring using Aristotle's framework and a Neo4j knowledge graph. 12 traits, 214 indicators, 3 dimensions. Built in a week for the Claude Code Hackathon.
-- **[Lumis](https://github.com/allierays/lumis)** — CLI + MCP server for capturing moments, synthesizing research, and producing video content from an Obsidian vault.
-- **[allierays.com](https://allierays.com)** — Writing about Applied AI, agentic architecture, and what actually works in production.
-
 #### What I Write About
 
 - Agentic workflows, agents, and multi-agent systems
