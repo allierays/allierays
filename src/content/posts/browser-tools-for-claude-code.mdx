@@ -1,0 +1,123 @@
+---
+title: "3 Ways to Give Claude Access to Your Browser"
+description: "Claude in Chrome, Playwright, and DevTools MCP. What each one does, how it sees the page, and when to use which."
+date: 2026-04-25
+tags: [claude-code, mcp, browser-automation]
+image: "/images/browser-tools-claude-code.png"
+hideHeaderImage: true
+---
+
+import Terminal from '../../components/diagrams/Terminal';
+import Callout from '../../components/diagrams/Callout';
+
+Claude Code can write code, read files, and run commands. But until recently, it couldn't see your browser. It couldn't check if the UI you just shipped actually looks right. It couldn't read the error in your console. It couldn't fill out a form to test a workflow.
+
+Now there are three tools that give Claude browser access. They all solve the same problem but in different ways. Here's how they compare and when to use each one.
+
+## 1. Claude in Chrome
+
+**Claude sees your screen like a person would.**
+
+Claude in Chrome is a Chrome extension from Anthropic. It takes screenshots of your browser, understands what it sees, and clicks where it needs to. It works in your real browser with your real login sessions — no setup, no fake accounts.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'fill out the support ticket form in Chrome with my info' },
+  { type: 'text', content: 'I\'ll navigate to the support page and fill out the form.' },
+  { type: 'action', content: 'Navigate to support.company.com/tickets/new' },
+  { type: 'action', content: 'Screenshot taken — I can see the ticket form' },
+  { type: 'action', content: 'Filling in Name: Allie Jones' },
+  { type: 'action', content: 'Filling in Email: allie@company.com' },
+  { type: 'action', content: 'Click Submit' },
+]} cwd="~/my-app" />
+
+**How it sees the page:** Screenshots. Claude literally looks at what's on screen, reads it visually, and decides what to click. This is why it costs more tokens — images are expensive.
+
+**When to use it:**
+- Testing a UI change you just made — "does this look right?"
+- Filling out forms, clicking through workflows
+- Anything where you'd normally say "let me show you what I see"
+- When you need Claude to use your logged-in sessions (Salesforce, Jira, internal tools)
+
+**Setup:** Install the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn), restart Claude Code, run `/chrome` to connect.
+
+**Good to know:**
+- Works with any web app you're already logged into
+- Can record GIFs of what it does
+- Requires a Claude Max plan
+- Higher token cost because of screenshots
+
+## 2. Playwright MCP
+
+**Claude clicks and types for you — without looking at the screen.**
+
+Playwright is Microsoft's browser automation tool. The Playwright MCP server lets Claude control a browser programmatically. Instead of taking screenshots, it reads the page structure as text. It knows there's a button called "Sign in" without needing to see it.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'go to localhost:3000 and test the login flow' },
+  { type: 'text', content: 'I\'ll use Playwright to test the login flow.' },
+  { type: 'action', content: 'Navigate to localhost:3000' },
+  { type: 'action', content: 'Snapshot: heading "Welcome back", textbox "Email", textbox "Password", button "Sign in"' },
+  { type: 'action', content: 'Fill "Email" with test@example.com' },
+  { type: 'action', content: 'Fill "Password" with ••••••••' },
+  { type: 'action', content: 'Click "Sign in"' },
+  { type: 'text', content: 'Login successful. Redirected to /dashboard.' },
+]} cwd="~/my-app" />
+
+**How it sees the page:** Accessibility tree. Playwright reads the page like a screen reader would — headings, buttons, inputs, links, all as structured text. No images, no screenshots. This makes it fast and cheap on tokens.
+
+**When to use it:**
+- Testing flows (login, checkout, form submission)
+- Scraping data from a page
+- Automating repetitive browser tasks
+- When you don't need your logged-in sessions
+
+**Setup:** Add the Playwright MCP server to your Claude Code config. It opens a fresh browser each time.
+
+**Good to know:**
+- Works with Chrome, Firefox, and WebKit
+- Opens a clean browser — no saved passwords, no cookies
+- Free and open source
+- Lower token cost than Claude in Chrome
+
+## 3. Chrome DevTools MCP
+
+**Claude reads error messages from the browser.**
+
+Chrome DevTools MCP gives Claude access to the same developer tools panel that engineers use to debug websites. It can read error messages, check network requests, and find performance problems that you can't see on the page itself.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'check the console logs on localhost:3000 for errors' },
+  { type: 'text', content: 'I\'ll connect to Chrome DevTools and check the console.' },
+  { type: 'action', content: 'Console: Error — Failed to load /api/auth 500' },
+  { type: 'action', content: 'Console: TypeError — Cannot read property \'token\'' },
+  { type: 'action', content: 'Network: bundle.js — 842 KB (consider splitting)' },
+  { type: 'text', content: 'Found 2 errors. The auth endpoint is returning 500, and there\'s an unhandled null token.' },
+]} cwd="~/my-app" />
+
+**How it sees the page:** Raw browser data. Console logs, network requests, performance metrics, memory usage. It sees what's happening under the hood, not what's on screen.
+
+**When to use it:**
+- Finding errors that don't show up visually
+- Debugging slow page loads
+- Checking if API calls are failing
+- Performance optimization
+
+**Setup:** Add the Chrome DevTools MCP server to your config. It connects to your running Chrome instance.
+
+**Good to know:**
+- Reads console errors, network requests, and performance data
+- Can simulate slow connections and throttled CPUs
+- Connects to your running Chrome — keeps your sessions
+- Lower token cost (text only, no images)
+
+## Which One Should You Use?
+
+**Start with Claude in Chrome** if you're not sure. It's the most intuitive — Claude sees what you see. If you're testing a UI, checking a layout, or need Claude to interact with a logged-in app, this is the one.
+
+**Use Playwright** when you want Claude to automate browser tasks or test flows without your login sessions. It's faster, cheaper, and works across browsers.
+
+**Use DevTools** when something is broken and you can't see why. The page looks fine but the API is failing silently, or the page is slow and you need to know what's causing it.
+
+You can use all three in the same project. They solve different problems.
+
+<Callout client:only="react" text="Claude in Chrome for seeing. Playwright for doing. DevTools for understanding what's broken underneath." />
