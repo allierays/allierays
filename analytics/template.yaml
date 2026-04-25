@@ -1,0 +1,61 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Simple page view tracking for allierays.com
+
+Globals:
+  Function:
+    Timeout: 10
+    Runtime: nodejs20.x
+
+Resources:
+  PageViewsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: PageViews
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: pk
+          AttributeType: S
+        - AttributeName: sk
+          AttributeType: S
+      KeySchema:
+        - AttributeName: pk
+          KeyType: HASH
+        - AttributeName: sk
+          KeyType: RANGE
+      TimeToLiveSpecification:
+        AttributeName: ttl
+        Enabled: true
+
+  TrackFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: index.handler
+      CodeUri: lambda/
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref PageViewsTable
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PageViewsTable
+      Events:
+        Track:
+          Type: HttpApi
+          Properties:
+            Path: /track
+            Method: POST
+        Stats:
+          Type: HttpApi
+          Properties:
+            Path: /stats
+            Method: GET
+        Cors:
+          Type: HttpApi
+          Properties:
+            Path: /{proxy+}
+            Method: OPTIONS
+
+Outputs:
+  ApiUrl:
+    Description: API endpoint URL
+    Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com"

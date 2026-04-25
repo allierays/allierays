@@ -26,6 +26,10 @@
   --ink-muted: #8a867a;
   --ink-faint: #b5b0a3;
 
+  /* actions */
+  --action-bg: linear-gradient(135deg, #2d4059 0%, #5b9ea6 100%);
+  --action-bg-hover: linear-gradient(135deg, #1e2a4a 0%, #4a8891 100%);
+
   /* fonts */
   --font-display: 'Chiron Go Round TC', system-ui, sans-serif;
   --font-body: 'Source Serif 4', Georgia, serif;
@@ -88,13 +92,12 @@ p {
 
 a {
   color: var(--navy);
-  text-decoration-color: var(--gold-border);
-  text-underline-offset: 3px;
-  transition: text-decoration-color 0.2s;
+  text-decoration: none;
+  transition: color 0.2s;
 }
 
 a:hover {
-  text-decoration-color: var(--gold);
+  color: #5b9ea6;
 }
 
 /* ── Prose (article content) ── */
@@ -319,9 +322,7 @@ a:hover {
 }
 
 .post-card h2 a:hover {
-  text-decoration: underline;
-  text-decoration-color: var(--gold);
-  text-underline-offset: 4px;
+  color: #5b9ea6;
 }
 
 .post-card p {
@@ -455,7 +456,7 @@ a:hover {
 }
 
 .header-nav a:hover {
-  color: var(--ink);
+  color: #5b9ea6;
 }
 
 @media (max-width: 768px) {
@@ -528,6 +529,36 @@ a:hover {
 
 }
 
+/* ── Action buttons ── */
+.action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-family: var(--font-display);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  background: var(--action-bg);
+  color: #ffffff;
+  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+}
+
+.action-btn:hover {
+  background: var(--action-bg-hover);
+  color: #ffffff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(45,64,89,0.25);
+}
+
+.action-btn--sm {
+  padding: 5px 12px;
+  font-size: 0.75rem;
+}
+
 /* ── Share bar ── */
 .share-bar {
   max-width: 1200px;
@@ -552,40 +583,6 @@ a:hover {
 .share-buttons {
   display: flex;
   gap: 0.5rem;
-}
-
-.share-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-family: var(--font-display);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  border: 1px solid var(--marble);
-  background: var(--bg-card);
-  color: var(--ink-light);
-}
-
-.share-btn:hover {
-  border-color: var(--navy-border);
-  color: var(--ink);
-}
-
-.share-btn--linkedin:hover {
-  background: #0a66c2;
-  color: #fff;
-  border-color: #0a66c2;
-}
-
-.share-btn--x:hover {
-  background: var(--ink);
-  color: #fff;
-  border-color: var(--ink);
 }
 
 .share-btn--copy {

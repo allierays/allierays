@@ -1,0 +1,374 @@
+---
+title: "7 Techniques to Debug Claude Code"
+description: "Every gap in context is an assumption Claude has to make. Here are the seven techniques I use every day to close those gaps."
+date: 2026-04-25
+tags: [claude-code, ai, debugging]
+image: "/images/7-techniques-debug-claude-code.svg"
+---
+
+import ContextMeter from '../../components/diagrams/debugging/ContextMeter';
+import TechniqueMap from '../../components/diagrams/debugging/TechniqueMap';
+import EvidenceChain from '../../components/diagrams/debugging/EvidenceChain';
+import Callout from '../../components/diagrams/Callout';
+import Accordion from '../../components/Accordion';
+import GoodBadTerminal from '../../components/diagrams/debugging/GoodBadTerminal';
+import Terminal from '../../components/diagrams/Terminal';
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; margin-bottom: 2rem;">
+  <iframe
+    src="https://www.youtube.com/embed/JPSknFhRI7U"
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+  />
+</div>
+
+## Every assumption costs you time and tokens
+
+I've been building with Claude Code daily for months now. The single most useful thing I've learned is this: Claude is quick to tell you you're right and start coding. It won't push back. It won't ask clarifying questions. It fills in the gaps with assumptions, and assumptions are where things go wrong. Where tokens get wasted. Where you end up going in circles. **Your job when coding with Claude isn't to tell it to try harder. Your job is to make Claude make fewer assumptions.**
+
+These are the seven techniques I use every day. Not just when I'm stuck. When I'm starting a feature, when I'm mid-session and things are going fine, when I want to keep them going fine. They work because they all do the same thing: close the gap between what Claude can see and what you know.
+
+<TechniqueMap client:only="react" />
+
+## 1. Force Claude to Investigate
+
+Claude wants to find the easiest and fastest solution. You say something is broken, Claude says "You're right!" and immediately starts editing files. The problem is, the fastest fix often isn't the right one.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'the login page is broken' },
+  { type: 'text', content: "You're right! Let me fix that for you." },
+  { type: 'action', content: 'Edit src/lib/auth.ts' },
+]} cwd="~/[project]" />
+
+Stop Claude before it edits. Tell it to investigate first. Make it read the full flow, understand the architecture, and explain what it finds before it changes anything.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: "stop. I need you to go investigate first. Don't edit anything until you understand the problem." },
+  { type: 'text', content: "I'll investigate the full flow before making changes." },
+  { type: 'action', content: 'Read src/lib/auth.ts' },
+  { type: 'action', content: 'Read src/middleware/session.ts' },
+  { type: 'action', content: 'Read src/app/api/auth/callback/route.ts' },
+  { type: 'text', content: 'Found the root cause: the session middleware expects JWTs but the callback generates opaque tokens.' },
+]} cwd="~/[project]" />
+
+The difference is massive. Instead of patching symptoms, Claude finds the real problem. Tell Claude to analyze before it gives back an answer.
+
+## 2. Feed Claude the Evidence
+
+<EvidenceChain client:only="react" />
+
+### Terminal
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<GoodBadTerminal client:only="react" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The instinct when something breaks is to describe the problem. *"the login page is broken."*
+
+Don't do this.
+
+Point Claude at the evidence directly. Send Claude the terminal output, paste a screenshot, or let Claude check the browser itself with [Claude in Chrome](https://code.claude.com/docs/en/chrome).
+
+Claude is better at diagnosing real errors than hypothetical ones. Every layer of interpretation you add is a layer where information gets lost. It also costs you tokens. When Claude has to guess what's wrong, it reads files, forms hypotheses, makes edits, runs into the same problem, and tries again. That's expensive.
+
+**A vague prompt can burn through 10x the tokens of a specific one because Claude is doing detective work you could have skipped by sharing the evidence upfront.**
+
+</div>
+</div>
+
+### Screenshots
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load imageLabel="[Image #1]" lines={[
+  { type: 'prompt', content: 'the sidebar overlaps main content on mobile' },
+  { type: 'text', content: "Can you paste a screenshot? I'll diagnose from the layout directly." },
+]} cwd="~/my-app" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+Claude is multimodal. When the UI is broken, paste a screenshot with Ctrl+V. When a page layout is wrong, drag the image into the prompt. You'll get a better response from "here's what it looks like" than from "the sidebar is overlapping the main content on mobile."
+
+I use this more than anything else. It is incredibly useful and more efficient than describing every detail.
+
+</div>
+</div>
+
+### Claude in Chrome
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load showHeader={false} showInput={false} showFooter={false} lines={[
+  { type: 'heading', content: 'Claude in Chrome (Beta)' },
+  { type: 'muted', content: 'Claude in Chrome works with the Chrome extension to let you' },
+  { type: 'muted', content: 'control your browser directly from Claude Code.' },
+  { type: 'status', content: 'Status: Connected', color: '#28c840' },
+  { type: 'status', content: 'Extension: Installed', color: '#28c840' },
+  { type: 'menu-active', content: 'Manage permissions' },
+  { type: 'menu', content: 'Reconnect extension' },
+  { type: 'menu', content: 'Enabled by default: Yes' },
+  { type: 'hint', content: 'Enter to confirm · Esc to cancel' },
+]} />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The power version. Run `claude --chrome` and Claude can navigate your browser, click through your UI, read console errors, and take screenshots on its own. You stop being the middleman. Claude sees the problem directly, in your real browser with your real login sessions.
+
+Install the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn), restart Claude Code, and run `/chrome` to connect it.
+
+
+</div>
+</div>
+
+I use all three constantly:
+
+- **Terminal output** for backend work
+- **Screenshots** for quick UI bugs
+- **Claude in Chrome** when I need Claude to see the browser for itself
+
+Same instinct each time: give Claude the raw data, not my interpretation of it.
+
+## 3. Build a Source of Truth File
+
+<div style="display: flex; gap: 2rem; align-items: flex-start; margin: 0 0 2.5rem;">
+<div style="flex: 1; min-width: 0;">
+<Terminal client:load lines={[]} inputLines={[
+  'Before we go further, research best practices for implementing [feature]. Search the web, check the docs, find examples, and write a source of truth file to docs/plans/[feature-name].md.',
+  'Include: 1) best practices and patterns from your research, 2) how [feature] should work end to end, 3) the files involved and their responsibilities, 4) every approach we\'ve tried so far and why it failed, 5) what we know works.',
+]} cwd="~/[project]" />
+</div>
+<div style="flex: 1; min-width: 0;">
+
+The longest debugging sessions aren't hard problems. They're circles. Claude tries something, it fails, context compresses, and Claude tries the same thing again.
+
+The fix is simple: make Claude write it down.
+
+That file is now a persistent source of truth that survives context compression. When Claude starts going in circles, point it back at the file. It re-reads the spec, sees the failed attempts, and stops repeating them.
+
+Files outlive context. Your conversation gets summarized and compressed as it grows. But a markdown file in the repo stays exactly as you wrote it. Claude can `Read` it fresh at any point and get the full picture back.
+
+I keep these in `docs/plans/` or just a `NOTES.md` at the project root. Cheap to create, saves hours of circular debugging.
+
+</div>
+</div>
+
+## 4. Think Holistically
+
+Claude solves the immediate problem you give it. You say something is broken, it finds the fastest path to making the error go away. Quick fix, move on.
+
+But the fastest fix is often the wrong fix. It patches the symptom and breaks something downstream. Or it works today but doesn't scale. Or it adds a special case where the real answer is fixing the abstraction.
+
+Claude will tell you it's fixed. The error might even go away. But the real reason it wasn't working is still there, hidden under a patch.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'Stop. Before you fix this, think about it holistically. What\'s the right solution that won\'t break other things? We want the right, scalable, correct solution, not the fastest one.' },
+  { type: 'text', content: 'Looking at the broader architecture, the real issue is that we\'re storing session state in two places. Patching the auth handler would fix the immediate error but create a sync problem later. The right fix is to consolidate to a single session store.' },
+]} cwd="~/[project]" />
+
+This changes the output completely. Claude stops optimizing for the immediate error and starts considering the system. It reads more files. It thinks about side effects. It proposes solutions that actually hold up.
+
+I say this to Claude constantly: "stop trying to fix this and think about it more holistically." It's the difference between a patch and an architecture decision.
+
+<Callout client:only="react" text="The fastest fix is often the wrong fix. Your job isn't to let Claude solve the problem quickly. It's to make sure Claude solves the right problem." />
+
+## 5. Ask Claude to do Web Research
+
+Claude is not always trained on the most current information. Frameworks change, APIs get deprecated, best practices evolve. If you let Claude build without checking, it might use patterns that were correct six months ago but aren't anymore.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'before you build the auth flow, search the web for current best practices with NextAuth v5' },
+  { type: 'text', content: 'Researching NextAuth v5 best practices...' },
+  { type: 'action', content: 'WebSearch: NextAuth v5 authentication patterns 2026' },
+  { type: 'action', content: 'WebSearch: NextAuth v5 session management best practices' },
+  { type: 'action', content: 'Read https://authjs.dev/getting-started/installation' },
+  { type: 'text', content: 'Found 3 key patterns from the latest docs.' },
+]} cwd="~/[project]" />
+
+Tell Claude to search the web before it builds. Make Claude your research agent. The few seconds it takes to search saves hours of debugging against outdated patterns.
+
+## 6. Build Skills for Repeated Problems
+
+If you find yourself typing the same instruction to Claude more than twice, stop. You're being the loop again.
+
+Claude Code has a [skills system](https://code.claude.com/docs/en/slash-commands). A skill is a markdown file in `.claude/commands/` that turns a repeated workflow into a single slash command. Instead of typing "research best practices, check the docs, write a source of truth file" every time, you run `/source-of-truth` and it happens.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: '/source-of-truth login-form' },
+  { type: 'text', content: 'Researching login form best practices...' },
+  { type: 'action', content: 'WebSearch: login form validation patterns' },
+  { type: 'action', content: 'Read src/app/login/page.tsx' },
+  { type: 'action', content: 'Read src/lib/auth.ts' },
+  { type: 'action', content: 'Write docs/plans/login-form.md' },
+]} cwd="~/[project]" />
+
+## 7. Ultra Review Before You Merge
+
+You've been debugging, fixing, iterating. The code works. Before you merge, run `/ultrareview`.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: '/ultrareview' },
+  { type: 'text', content: 'Starting deep multi-agent review...' },
+  { type: 'action', content: 'Agent 1: Security review' },
+  { type: 'action', content: 'Agent 2: Architecture review' },
+  { type: 'action', content: 'Agent 3: Correctness review' },
+  { type: 'text', content: '3 issues found, 2 verified and reproduced.' },
+]} cwd="~/[project]" />
+
+[`/ultrareview`](https://code.claude.com/docs/en/ultrareview) spins up a swarm of specialist agents in the cloud. Security, architecture, correctness, style -- each one reviews your branch in parallel. Every finding gets independently reproduced before it reaches you.
+
+This is different from `/review`, which is a single-pass local review. `/ultrareview` runs remotely, uses multiple agents, and goes deeper. It catches things that a single review misses: subtle security issues, architectural inconsistencies, correctness bugs that only show up in edge cases.
+
+It costs $5-20 per run depending on the size of the change, so save it for the big merges. The PRs where a missed bug would cost you a day of debugging downstream. For everyday changes, `/review` is still the right tool.
+
+## Grab the Skills
+
+I built three skills from this article and open sourced them. Save each one to `~/.claude/skills/<name>/SKILL.md` and they'll work in any project.
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "/source-of-truth",
+    content: `---
+name: source-of-truth
+description: Research best practices and write a persistent source of truth file for a feature. Use when starting a new feature, debugging a complex problem, or when context keeps getting lost between sessions.
+argument-hint: "[feature-name]"
+disable-model-invocation: true
+---
+
+# Build a Source of Truth File
+
+Create a persistent plan file that survives context compression. This file becomes the single reference point for how a feature should work, what's been tried, and what we know.
+
+## Steps
+
+1. **Research best practices.** Search the web for how \`$ARGUMENTS\` is typically implemented. Check official docs, find real-world examples, and identify common patterns and pitfalls.
+
+2. **Read the codebase.** Find all files related to \`$ARGUMENTS\` in this project. Understand the current implementation, architecture, and dependencies.
+
+3. **Write the source of truth file** to \`docs/plans/$ARGUMENTS.md\` with these sections:
+
+# [Feature Name] — Source of Truth
+
+## Best Practices
+Patterns and approaches from research. What the community recommends.
+
+## How It Should Work
+End-to-end description of the correct behavior. Expected inputs, outputs, edge cases.
+
+## Files Involved
+Each file that touches this feature and its responsibility.
+
+## What We've Tried
+Every approach attempted so far and why it failed. Add to this section as work continues.
+
+## What Works
+Things we know are correct and should not be changed.
+
+4. **Report back** with a summary of what you found and wrote.
+
+## Important
+
+- If \`docs/plans/$ARGUMENTS.md\` already exists, read it first and update it rather than overwriting.
+- Be specific in the "What We've Tried" section. Include file names, line numbers, and error messages.
+- The "What Works" section prevents regressions. Don't skip it.`
+  },
+  {
+    title: "/unstuck",
+    content: `---
+name: unstuck
+description: Break out of a debugging loop. Reads the source of truth file if one exists, examines the full data flow, and proposes the right solution rather than another quick fix. Use when you've been going in circles or when fixes keep breaking other things.
+argument-hint: "[what you're stuck on]"
+disable-model-invocation: true
+---
+
+# Get Unstuck
+
+Stop fixing the symptom. Think holistically about what's actually going wrong.
+
+## Steps
+
+1. **Check for a source of truth file.** Look in \`docs/plans/\` for any file related to \`$ARGUMENTS\`. If one exists, read it first. Pay attention to the "What We've Tried" section so you don't repeat failed approaches.
+
+2. **Read the full data flow.** Don't just look at the file with the error. Trace the complete flow end to end. Read every file involved in \`$ARGUMENTS\`. Understand the architecture, not just the stack trace.
+
+3. **Identify the real problem.** Ask yourself:
+   - Is this a symptom or the root cause?
+   - Would fixing this break something downstream?
+   - Is there a wrong assumption buried in the code?
+   - Are we patching around a design problem?
+
+4. **Propose the right solution.** Not the fastest fix. The correct, scalable one. Explain:
+   - What the root cause actually is
+   - Why previous attempts failed (if applicable)
+   - What the right fix looks like and why it won't break other things
+   - What files need to change
+
+5. **Update the source of truth file** if one exists. Add what you found to the "What We've Tried" section.
+
+## Important
+
+- Do NOT start editing files immediately. Think first, propose, then implement only after explaining your approach.
+- If you've already tried fixing this more than twice, something is wrong with the approach, not the implementation. Step back further.
+- Use "think hard" if the problem is complex. Take the time to reason through it.`
+  },
+  {
+    title: "/review",
+    content: `---
+name: review
+description: Review the current changes like a senior engineer would. Checks the git diff for bugs, edge cases, missing error handling, and things that might break downstream. Use after implementing a feature or fix, before committing.
+context: fork
+agent: Explore
+---
+
+# Code Review
+
+Review the current uncommitted changes with fresh eyes. You have no context about why these changes were made. Judge them purely on quality.
+
+## Steps
+
+1. **Read the diff.** Run \`git diff\` to see all uncommitted changes. If there are staged changes, also run \`git diff --cached\`.
+
+2. **Understand what changed.** For each modified file, read enough of the surrounding code to understand the context. Don't just look at the changed lines.
+
+3. **Review for these issues:**
+
+   **Correctness**
+   - Does the logic actually do what it appears to intend?
+   - Are there off-by-one errors, null checks, or race conditions?
+   - Does it handle edge cases (empty inputs, large inputs, concurrent access)?
+
+   **Side effects**
+   - Could these changes break something in another part of the codebase?
+   - Are there callers of modified functions that might not expect the new behavior?
+   - Do database or API contract changes affect other consumers?
+
+   **Quality**
+   - Is the approach the right one, or is it papering over a deeper issue?
+   - Is there duplicated logic that should be extracted?
+   - Are error messages helpful for debugging?
+
+   **Missing pieces**
+   - Are there tests for the new behavior?
+   - Are there edge cases that aren't covered?
+   - Is there error handling that should exist but doesn't?
+
+4. **Report your findings.** Be specific. Reference file names and line numbers. For each issue, explain:
+   - What the problem is
+   - Why it matters
+   - What the fix should be
+
+If the changes look good, say so. Don't invent problems.`
+  }
+]} />
+
+The best debugging skill is the one you don't have to remember to use. Build it once, run it with a slash command, and move on to the actual problem.
+
+---
+
+## Close the Gaps
+
+Every technique in this article does the same thing: close the gap between what Claude can see and what it needs to know. Feed it evidence instead of descriptions. Write things down so context survives. Slow it down before it patches the wrong thing. Split big problems so nothing gets lost. Automate the patterns you keep repeating.
+
+When Claude loops or breaks something, it's not a failure. It's a signal that there's a gap. Something you know that Claude doesn't. Something that got compressed out of context. Something that was never written down. Find the gap, close it, and Claude gets back on track.

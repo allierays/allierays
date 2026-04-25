@@ -75,6 +75,16 @@ const defaultJsonLd = {
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd || defaultJsonLd)} />
 
     <!-- Mermaid (loaded in body below) -->
+
+    <!-- Page view tracking -->
+    <script is:inline>
+      if (!navigator.userAgent.includes('bot')) {
+        navigator.sendBeacon('https://7t1nmysged.execute-api.us-east-1.amazonaws.com/track', JSON.stringify({
+          page: location.pathname,
+          referrer: document.referrer
+        }));
+      }
+    </script>
   </head>
   <body>
     <header class="site-header">

@@ -70,7 +70,7 @@ const articleJsonLd = {
       <span class="share-label">Share this article</span>
       <div class="share-buttons">
         <a
-          class="share-btn share-btn--linkedin"
+          class="action-btn share-btn--linkedin"
           href={`https://www.linkedin.com/sharing/share-offsite/?url=https://allierays.com/posts/${Astro.url.pathname.split('/').filter(Boolean).pop()}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -80,7 +80,7 @@ const articleJsonLd = {
           LinkedIn
         </a>
         <a
-          class="share-btn share-btn--x"
+          class="action-btn share-btn--x"
           href={`https://x.com/intent/tweet?text=${encodeURIComponent(title)}&url=https://allierays.com/posts/${Astro.url.pathname.split('/').filter(Boolean).pop()}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -90,7 +90,7 @@ const articleJsonLd = {
           X
         </a>
         <button
-          class="share-btn share-btn--copy"
+          class="action-btn share-btn--copy"
           data-url={`https://allierays.com/posts/${Astro.url.pathname.split('/').filter(Boolean).pop()}`}
           aria-label="Copy link"
         >
