@@ -13,11 +13,13 @@ const mono = "'JetBrains Mono', monospace";
 const display = "'Chiron Go Round TC', system-ui, sans-serif";
 
 const techniques = [
-  { num: '1', name: 'Feed Claude the Evidence', heading: '1. Feed Claude the Evidence', desc: 'Terminal, screenshots, Chrome', color: TEAL },
-  { num: '2', name: 'Build a Source of Truth File', heading: '2. Build a Source of Truth File', desc: 'Persistent context that survives', color: CORAL },
-  { num: '3', name: 'Think Holistically', heading: '3. Think Holistically', desc: 'Right solution, not the fast one', color: NAVY },
-  { num: '4', name: 'Use Agent Teams', heading: '4. Use Agent Teams', desc: 'Parallel agents, focused context', color: TEAL },
-  { num: '5', name: 'Build Skills', heading: '5. Build Skills for Repeated Problems', desc: 'Automate what you repeat', color: SAGE },
+  { num: '1', name: 'Force Claude to Investigate', heading: '1. Force Claude to Investigate', desc: 'Analyze before editing', color: NAVY },
+  { num: '2', name: 'Feed the Evidence', heading: '2. Feed Claude the Evidence', desc: 'Terminal, screenshots, Chrome', color: TEAL },
+  { num: '3', name: 'Source of Truth File', heading: '3. Build a Source of Truth File', desc: 'Persistent context that survives', color: CORAL },
+  { num: '4', name: 'Think Holistically', heading: '4. Think Holistically', desc: 'Right solution, not the fast one', color: NAVY },
+  { num: '5', name: 'Web Research', heading: '5. Ask Claude to do Web Research', desc: 'Current best practices', color: TEAL },
+  { num: '6', name: 'Build Skills', heading: '6. Build Skills for Repeated Problems', desc: 'Automate what you repeat', color: SAGE },
+  { num: '7', name: 'Ultra Review', heading: '7. Ultra Review Before You Merge', desc: 'Multi-agent deep review', color: CORAL },
 ];
 
 export default function TechniqueMap() {
@@ -50,12 +52,12 @@ export default function TechniqueMap() {
           marginBottom: 16,
           textAlign: 'center' as const,
         }}>
-          Five Techniques to Debug Claude Code
+          Seven Techniques to Debug Claude Code
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(5, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(7, 1fr)',
           gap: 12,
         }}>
           {techniques.map((t, i) => (
