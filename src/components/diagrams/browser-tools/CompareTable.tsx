@@ -130,13 +130,22 @@ export default function CompareTable() {
           { name: 'Playwright', icon: '/images/Playwright_Logo.svg.png', color: TEAL },
           { name: 'DevTools', icon: '/images/chrome-devtools.jpeg', color: GREEN },
         ].map((tool) => (
-          <div key={tool.name} style={{ textAlign: 'center', padding: '14px 8px' }}>
+          <div key={tool.name} style={{
+            textAlign: 'center',
+            padding: '16px 8px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 6,
+            borderLeft: `1px solid ${MARBLE}`,
+          }}>
             {tool.useClaudeIcon ? (
-              <svg width="28" height="28" viewBox="0 0 32 32" fill="none" style={{ marginBottom: 4 }}>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
                 <path d="M16 4L18 13L27 11L20 16L27 21L18 19L16 28L14 19L5 21L12 16L5 11L14 13Z" fill={tool.color} />
               </svg>
             ) : (
-              <img src={tool.icon} alt="" style={{ width: 28, height: 28, borderRadius: 6, objectFit: 'cover', marginBottom: 4 }} />
+              <img src={tool.icon} alt="" style={{ width: 32, height: 32, borderRadius: 6, objectFit: 'cover' }} />
             )}
             <div style={{ fontFamily: display, fontSize: '0.8rem', fontWeight: 700, color: INK }}>{tool.name}</div>
           </div>
