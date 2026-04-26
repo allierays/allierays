@@ -9,6 +9,7 @@ hideHeaderImage: true
 
 import Terminal from '../../components/diagrams/Terminal';
 import Callout from '../../components/diagrams/Callout';
+import Accordion from '../../components/Accordion';
 import BrowserToolsMap from '../../components/diagrams/browser-tools/BrowserToolsMap';
 import ToolHeader from '../../components/diagrams/browser-tools/ToolHeader';
 import HowItSees from '../../components/diagrams/browser-tools/HowItSees';
@@ -43,13 +44,30 @@ Claude in Chrome is a Chrome extension from Anthropic. It takes screenshots of y
 - Anything where you'd normally say "let me show you what I see"
 - When you need Claude to use your logged-in sessions (Salesforce, Jira, internal tools)
 
-**Setup:** Install the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn), restart Claude Code, run `/chrome` to connect.
-
 **Good to know:**
 - Works with any web app you're already logged into
 - Can record GIFs of what it does
 - Requires a Claude Max plan
 - Higher token cost because of screenshots
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "Setup: Claude in Chrome",
+    content: `1. Install the Claude in Chrome extension from the Chrome Web Store
+   https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn
+
+2. Restart Claude Code (close and reopen)
+
+3. Inside Claude Code, run:
+   /chrome
+
+4. Select "Enabled by default" so you don't have to pass --chrome every session
+
+5. Manage which sites Claude can access in the Chrome extension settings
+
+Works with Google Chrome and Microsoft Edge. Not yet supported on Brave, Arc, or other Chromium browsers.`
+  }
+]} />
 
 ## 2. Playwright MCP
 
@@ -76,13 +94,32 @@ Playwright is Microsoft's browser automation tool. The Playwright MCP server let
 - Automating repetitive browser tasks
 - When you don't need your logged-in sessions
 
-**Setup:** Add the Playwright MCP server to your Claude Code config. It opens a fresh browser each time.
-
 **Good to know:**
 - Works with Chrome, Firefox, and WebKit
 - Opens a clean browser — no saved passwords, no cookies
 - Free and open source
 - Lower token cost than Claude in Chrome
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "Setup: Playwright MCP",
+    content: `1. Add the Playwright MCP server to Claude Code:
+   claude mcp add playwright npx @playwright/mcp@latest
+
+2. Verify it's registered:
+   claude mcp list
+
+3. Inside Claude Code, check it's connected:
+   /mcp
+
+4. When prompting, say "use Playwright MCP" in your first message.
+   Claude sometimes defaults to running Playwright through Bash
+   if you don't mention MCP by name.
+
+Tip: Pin the version instead of using @latest to avoid
+breaking changes. Requires Node.js 18+.`
+  }
+]} />
 
 ## 3. Chrome DevTools MCP
 
@@ -107,13 +144,35 @@ Chrome DevTools MCP gives Claude access to the same developer tools panel that e
 - Checking if API calls are failing
 - Performance optimization
 
-**Setup:** Add the Chrome DevTools MCP server to your config. It connects to your running Chrome instance.
-
 **Good to know:**
 - Reads console errors, network requests, and performance data
 - Can simulate slow connections and throttled CPUs
 - Connects to your running Chrome — keeps your sessions
 - Lower token cost (text only, no images)
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "Setup: Chrome DevTools MCP",
+    content: `1. Add the DevTools MCP server to Claude Code:
+   claude mcp add chrome-devtools npx chrome-devtools-mcp@latest
+
+2. Verify it's registered:
+   claude mcp list
+
+3. For basic use (headless, no login sessions):
+   claude mcp add chrome-devtools npx chrome-devtools-mcp@latest --slim --headless
+
+4. For sites that need your login sessions, launch Chrome
+   with a debug port:
+   /Applications/Google\\ Chrome.app/Contents/MacOS/Google\\ Chrome --remote-debugging-port=9222
+
+   Then connect DevTools MCP to that port.
+
+5. For persistent logins, use a separate Chrome profile:
+   --user-data-dir=/tmp/chrome-debug-profile
+   Chrome saves cookies and sessions in that directory.`
+  }
+]} />
 
 ## Which One Should You Use?
 
