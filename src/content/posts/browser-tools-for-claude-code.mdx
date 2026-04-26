@@ -9,14 +9,19 @@ hideHeaderImage: true
 
 import Terminal from '../../components/diagrams/Terminal';
 import Callout from '../../components/diagrams/Callout';
+import BrowserToolsMap from '../../components/diagrams/browser-tools/BrowserToolsMap';
+import ToolHeader from '../../components/diagrams/browser-tools/ToolHeader';
+import HowItSees from '../../components/diagrams/browser-tools/HowItSees';
 
 Claude Code can write code, read files, and run commands. But until recently, it couldn't see your browser. It couldn't check if the UI you just shipped actually looks right. It couldn't read the error in your console. It couldn't fill out a form to test a workflow.
 
-Now there are three tools that give Claude browser access. They all solve the same problem but in different ways. Here's how they compare and when to use each one.
+Now there are three tools that give Claude browser access. They all solve the same problem but in different ways.
+
+<BrowserToolsMap client:only="react" />
 
 ## 1. Claude in Chrome
 
-**Claude sees your screen like a person would.**
+<ToolHeader client:load name="Claude in Chrome" maker="Anthropic" icon="" color="#c4785a" isClaudeIcon />
 
 Claude in Chrome is a Chrome extension from Anthropic. It takes screenshots of your browser, understands what it sees, and clicks where it needs to. It works in your real browser with your real login sessions — no setup, no fake accounts.
 
@@ -30,7 +35,7 @@ Claude in Chrome is a Chrome extension from Anthropic. It takes screenshots of y
   { type: 'action', content: 'Click Submit' },
 ]} cwd="~/my-app" />
 
-**How it sees the page:** Screenshots. Claude literally looks at what's on screen, reads it visually, and decides what to click. This is why it costs more tokens — images are expensive.
+<HowItSees client:only="react" tool="chrome" />
 
 **When to use it:**
 - Testing a UI change you just made — "does this look right?"
@@ -48,7 +53,7 @@ Claude in Chrome is a Chrome extension from Anthropic. It takes screenshots of y
 
 ## 2. Playwright MCP
 
-**Claude clicks and types for you — without looking at the screen.**
+<ToolHeader client:load name="Playwright MCP" maker="Microsoft" icon="/images/Playwright_Logo.svg.png" color="#5a8a8a" />
 
 Playwright is Microsoft's browser automation tool. The Playwright MCP server lets Claude control a browser programmatically. Instead of taking screenshots, it reads the page structure as text. It knows there's a button called "Sign in" without needing to see it.
 
@@ -63,7 +68,7 @@ Playwright is Microsoft's browser automation tool. The Playwright MCP server let
   { type: 'text', content: 'Login successful. Redirected to /dashboard.' },
 ]} cwd="~/my-app" />
 
-**How it sees the page:** Accessibility tree. Playwright reads the page like a screen reader would — headings, buttons, inputs, links, all as structured text. No images, no screenshots. This makes it fast and cheap on tokens.
+<HowItSees client:only="react" tool="playwright" />
 
 **When to use it:**
 - Testing flows (login, checkout, form submission)
@@ -81,7 +86,7 @@ Playwright is Microsoft's browser automation tool. The Playwright MCP server let
 
 ## 3. Chrome DevTools MCP
 
-**Claude reads error messages from the browser.**
+<ToolHeader client:load name="Chrome DevTools MCP" maker="Google" icon="/images/chrome-devtools.jpeg" color="#3d7a45" />
 
 Chrome DevTools MCP gives Claude access to the same developer tools panel that engineers use to debug websites. It can read error messages, check network requests, and find performance problems that you can't see on the page itself.
 
@@ -94,7 +99,7 @@ Chrome DevTools MCP gives Claude access to the same developer tools panel that e
   { type: 'text', content: 'Found 2 errors. The auth endpoint is returning 500, and there\'s an unhandled null token.' },
 ]} cwd="~/my-app" />
 
-**How it sees the page:** Raw browser data. Console logs, network requests, performance metrics, memory usage. It sees what's happening under the hood, not what's on screen.
+<HowItSees client:only="react" tool="devtools" />
 
 **When to use it:**
 - Finding errors that don't show up visually
