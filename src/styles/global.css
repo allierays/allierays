@@ -624,3 +624,22 @@ a:hover {
   color: var(--ink-faint);
   letter-spacing: 0.04em;
 }
+
+
+/* ── Reduced motion ───────────────────────────────────────────────────────
+   Honour the OS setting. The hero WebGL field renders one static frame
+   (handled in src/gl/hero.ts); everything else here is CSS-driven. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
