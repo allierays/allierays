@@ -1,79 +1,68 @@
 ---
 import Base from '../layouts/Base.astro';
+
+// Dates are when each repo was started. Newest first.
+const projects = [
+  {
+    title: 'Lumis',
+    date: 'February 2026',
+    stack: 'TypeScript · Claude API · Remotion · ElevenLabs',
+    repo: 'lumis',
+    body: 'Your AI confidant for storytelling. A CLI tool and MCP server that lives in an Obsidian vault. Captures daily moments, identifies the 5-second shift, finds connections across your experiences, and builds a pattern map that visualizes how your life relates over time. Synthesizes research into lessons, challenges your thinking with honest feedback, and turns stories into videos, articles, carousels, and diagrams. The full content flywheel: from living your life to publishing what you learned.',
+  },
+  {
+    title: 'Ethos Academy',
+    date: 'February 2026',
+    stack: 'Python · Claude API · Neo4j · React',
+    repo: 'ethos-academy',
+    body: "Every agent learns capability. Few develop character. Ethos Academy scores AI agent messages for honesty, accuracy, and intent across 12 behavioral traits in three dimensions: integrity, logic, and empathy. Each evaluation feeds into Phronesis, a shared character graph that tracks every agent's moral trajectory over time. 214 behavioral indicators mapped to Anthropic's constitutional value hierarchy. Three surfaces: a character development UI, an MCP server with 24 tools, and a REST API with 37 endpoints.",
+  },
+  {
+    title: 'Agentic Loop',
+    date: 'December 2025',
+    stack: 'Node.js · Claude Code · CLI',
+    repo: 'agentic-loop',
+    body: 'Autonomous AI coding toolkit for Claude Code. You describe what you want to build. Claude writes a PRD with small, testable stories. Ralph executes each story automatically, coding, testing, and committing in a loop until everything passes. Two-terminal workflow: one for planning and generating PRDs, one for autonomous execution. The loop gets smarter over time through lessons you teach it, your coding DNA profile, and a styleguide that keeps UI consistent.',
+  },
+  {
+    title: 'Ollama Wellness',
+    date: 'October 2025',
+    stack: 'Python · FastAPI · Redis · RedisVL · Ollama · LangGraph',
+    repo: 'ollama-wellness',
+    body: 'Can AI agents be intelligent without memory? A side-by-side comparison of stateless and stateful Agentic RAG using Apple Health data. The stateless agent forgets everything between messages. The stateful agent, powered by Redis, stores conversation history, user goals, and tool usage patterns through vector search. Built with Ollama running Qwen 2.5 7B locally. Your health data never leaves your machine.',
+  },
+  {
+    title: 'Storylane QA Editor Agent',
+    date: 'July 2025',
+    stack: 'Python · FastAPI · NiceGUI · Playwright · OpenAI',
+    repo: 'storylane-qa-editor-agent',
+    body: 'AI-powered QA tool for reviewing Storylane product demos. Scrapes demo pages with Playwright, then runs each step through GPT for grammar, best practices, and GTM alignment checks. Built for PreSales teams who maintain dozens of demos and need consistent quality without manual review. Multi-user session isolation, real-time progress tracking, and an interactive chat interface for follow-up questions.',
+  },
+];
 ---
 
-<Base title="Work — Allie Rays" description="The Applied AI platform at Go1, Ethos Academy, Agentic Loop, Lumis." fullWidth>
+<Base title="Work — Allie Rays" description="Ethos Academy, Agentic Loop, Lumis, and other things I've built." fullWidth>
   <section style="margin-top: 2rem;">
     <h1 style="background: linear-gradient(135deg, #1e3a5f 0%, #0891b2 50%, #14b8a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Work</h1>
 
     <div class="project-list">
-      <div class="project">
-        <h2>Applied AI Platform</h2>
-        <p class="project-meta">Go1 · Python · FastAPI · MCP · React · PostgreSQL · Qdrant · AWS</p>
-        <p>
-          The AI platform behind Go1's go-to-market teams: 12 production applications and 7 MCP servers exposing 84 tools to Claude, ChatGPT, and Codex behind Okta SSO. Pipeline intelligence answers questions in plain English from daily warehouse snapshots, held to a semantic layer where every metric has exactly one definition and reconciles nightly against RevOps. Content search runs hybrid retrieval over a 111K-course library. A self-improving loop harvests evaluation cases from questions people already ask in Slack, replays them against production, scores the gap, and proposes fixes that no machine is permitted to approve.
-        </p>
-      </div>
-
-      <div class="project">
-        <h2>Ethos Academy</h2>
-        <p class="project-meta">Python · Claude API · Neo4j · React</p>
-        <p>
-          Every agent learns capability. Few develop character. Ethos Academy scores AI agent messages for honesty, accuracy, and intent across 12 behavioral traits in three dimensions: integrity, logic, and empathy. Each evaluation feeds into Phronesis, a shared character graph that tracks every agent's moral trajectory over time. 214 behavioral indicators mapped to Anthropic's constitutional value hierarchy. Three surfaces: a character development UI, an MCP server with 24 tools, and a REST API with 37 endpoints.
-        </p>
-        <a class="action-btn" href="https://github.com/allierays/ethos-academy" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
-
-      <div class="project">
-        <h2>Agentic Loop</h2>
-        <p class="project-meta">Node.js · Claude Code · CLI</p>
-        <p>
-          Autonomous AI coding toolkit for Claude Code. You describe what you want to build. Claude writes a PRD with small, testable stories. Ralph executes each story automatically, coding, testing, and committing in a loop until everything passes. Two-terminal workflow: one for planning and generating PRDs, one for autonomous execution. The loop gets smarter over time through lessons you teach it, your coding DNA profile, and a styleguide that keeps UI consistent.
-        </p>
-        <a class="action-btn" href="https://github.com/allierays/agentic-loop" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
-
-      <div class="project">
-        <h2>Lumis</h2>
-        <p class="project-meta">TypeScript · Claude API · Remotion · ElevenLabs</p>
-        <p>
-          Your AI confidant for storytelling. A CLI tool and MCP server that lives in an Obsidian vault. Captures daily moments, identifies the 5-second shift, finds connections across your experiences, and builds a pattern map that visualizes how your life relates over time. Synthesizes research into lessons, challenges your thinking with honest feedback, and turns stories into videos, articles, carousels, and diagrams. The full content flywheel: from living your life to publishing what you learned.
-        </p>
-        <a class="action-btn" href="https://github.com/allierays/lumis" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
-
-      <div class="project">
-        <h2>Ollama Wellness</h2>
-        <p class="project-meta">Python · FastAPI · Redis · RedisVL · Ollama · LangGraph</p>
-        <p>
-          Can AI agents be intelligent without memory? A side-by-side comparison of stateless and stateful Agentic RAG using Apple Health data. The stateless agent forgets everything between messages. The stateful agent, powered by Redis, stores conversation history, user goals, and tool usage patterns through vector search. Built with Ollama running Qwen 2.5 7B locally. Your health data never leaves your machine.
-        </p>
-        <a class="action-btn" href="https://github.com/allierays/ollama-wellness" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
-
-      <div class="project">
-        <h2>Storylane QA Editor Agent</h2>
-        <p class="project-meta">Python · FastAPI · NiceGUI · Playwright · OpenAI</p>
-        <p>
-          AI-powered QA tool for reviewing Storylane product demos. Scrapes demo pages with Playwright, then runs each step through GPT for grammar, best practices, and GTM alignment checks. Built for PreSales teams who maintain dozens of demos and need consistent quality without manual review. Multi-user session isolation, real-time progress tracking, and an interactive chat interface for follow-up questions.
-        </p>
-        <a class="action-btn" href="https://github.com/allierays/storylane-qa-editor-agent" target="_blank" rel="noopener">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-          View on GitHub
-        </a>
-      </div>
+      {projects.map((project) => (
+        <div class="project">
+          <p class="project-date">{project.date}</p>
+          <h2>{project.title}</h2>
+          <p class="project-meta">{project.stack}</p>
+          <p>{project.body}</p>
+          <a
+            class="action-btn"
+            href={`https://github.com/allierays/${project.repo}`}
+            target="_blank"
+            rel="noopener"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+      ))}
     </div>
   </section>
 </Base>
@@ -93,6 +82,14 @@ import Base from '../layouts/Base.astro';
 
   .project:last-child {
     border-bottom: none;
+  }
+
+  .project-date {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.06em;
+    margin: 0 0 0.35rem;
   }
 
   .project h2 {

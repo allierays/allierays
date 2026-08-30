@@ -9,6 +9,7 @@ import react from '@astrojs/react';
 export default defineConfig({
   site: 'https://allierays.com',
   redirects: {
+    '/blog': '/',
     '/posts/5-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
     '/posts/6-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
   },
