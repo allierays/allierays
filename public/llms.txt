@@ -18,7 +18,7 @@ Posts are about:
 ## Pages
 
 - /about — who I am and what I've built
-- /projects — Content Compass, GOPA, Lumis
+- /projects — Content Compass, GOPA, Amplify
 - /rss.xml — RSS feed of all posts
 
 ## Full Index

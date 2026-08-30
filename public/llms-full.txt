@@ -21,7 +21,7 @@ Allie Rays — Lead Enterprise PreSales Engineer at Go1. Building Applied AI too
 ## Pages
 
 - [About](/about): Who I am and what I've built
-- [Projects](/projects): Content Compass, GOPA, Lumis
+- [Projects](/projects): Content Compass, GOPA, Amplify
 - [Blog](/blog): All posts
 
 ## Feeds
