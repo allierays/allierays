@@ -6,12 +6,14 @@ const MARBLE = '#e2e0db';
 const TERRACOTTA = '#c4785a';
 const TEAL = '#5a8a8a';
 const GREEN = '#3d7a45';
+const VIOLET = '#7a5f8a';
+const OCHRE = '#a8822c';
 
 const display = "'Chiron Go Round TC', system-ui, sans-serif";
 const mono = "'JetBrains Mono', monospace";
 
 interface HowItSeesProps {
-  tool: 'chrome' | 'playwright' | 'devtools';
+  tool: 'chrome' | 'playwright' | 'devtools' | 'browseruse' | 'agentreach';
 }
 
 const configs = {
@@ -89,6 +91,70 @@ const configs = {
         <div style={{ background: '#252526', borderRadius: 4, padding: '4px 8px', marginTop: 4 }}>
           <span style={{ fontFamily: mono, fontSize: '0.6rem', color: INK_MUTED }}>bundle.js </span>
           <span style={{ fontFamily: mono, fontSize: '0.6rem', color: '#e8915a' }}>842 kB</span>
+        </div>
+      </div>
+    ),
+  },
+  browseruse: {
+    label: 'browser-use',
+    color: VIOLET,
+    leftTitle: 'What you ask for',
+    rightTitle: 'What the agent works from',
+    leftContent: (
+      <div style={{ padding: 20, background: '#f8f6f1', borderRadius: 12, height: '100%', display: 'flex', flexDirection: 'column' as const, alignItems: 'center' as const, justifyContent: 'center' as const, gap: 10 }}>
+        <div style={{ fontFamily: display, fontSize: '0.95rem', fontWeight: 700, color: INK, textAlign: 'center' as const, lineHeight: 1.4 }}>
+          "Find the top 5 trending repos and summarize them"
+        </div>
+        <div style={{ fontFamily: display, fontSize: '0.8rem', color: INK_MUTED, textAlign: 'center' as const }}>
+          One sentence. No step-by-step.
+        </div>
+      </div>
+    ),
+    rightContent: (
+      <div style={{ padding: 16, background: '#1a1a1a', borderRadius: 12, height: '100%', display: 'flex', flexDirection: 'column' as const, gap: 6 }}>
+        <div><span style={{ fontFamily: mono, fontSize: '0.65rem', color: '#e8915a' }}>[12]</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}>&lt;a</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}> Trending</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}> /&gt;</span></div>
+        <div><span style={{ fontFamily: mono, fontSize: '0.65rem', color: '#e8915a' }}>[13]</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}>&lt;select</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}> Language</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}> /&gt;</span></div>
+        <div><span style={{ fontFamily: mono, fontSize: '0.65rem', color: '#e8915a' }}>*[14]</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}>&lt;button</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}> Star</span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: VIOLET }}> /&gt;</span></div>
+        <div style={{ background: '#252526', borderRadius: 4, padding: '6px 8px', marginTop: 4 }}>
+          <div style={{ fontFamily: mono, fontSize: '0.6rem', color: INK_MUTED, lineHeight: 1.5 }}>
+            numbered index = clickable
+          </div>
+          <div style={{ fontFamily: mono, fontSize: '0.6rem', color: INK_MUTED, lineHeight: 1.5 }}>
+            <span style={{ color: '#e8915a' }}>*</span> = new since last step
+          </div>
+        </div>
+      </div>
+    ),
+  },
+
+  agentreach: {
+    label: 'Agent Reach',
+    color: OCHRE,
+    leftTitle: 'What the agent hits',
+    rightTitle: 'What Agent Reach hands back',
+    leftContent: (
+      <div style={{ padding: 20, background: '#f8f6f1', borderRadius: 12, height: '100%', display: 'flex', flexDirection: 'column' as const, justifyContent: 'center' as const, gap: 8 }}>
+        <div style={{ fontFamily: mono, fontSize: '0.7rem', color: '#b85c5c' }}>403 Forbidden</div>
+        <div style={{ fontFamily: mono, fontSize: '0.7rem', color: '#b85c5c' }}>"Log in to see this post"</div>
+        <div style={{ fontFamily: mono, fontSize: '0.7rem', color: '#b85c5c' }}>Rate limit exceeded</div>
+        <div style={{ fontFamily: display, fontSize: '0.8rem', color: INK_MUTED, marginTop: 4 }}>
+          The page is there. The agent just can't get in.
+        </div>
+      </div>
+    ),
+    rightContent: (
+      <div style={{ padding: 16, background: '#1a1a1a', borderRadius: 12, height: '100%', display: 'flex', flexDirection: 'column' as const, gap: 6 }}>
+        <div><span style={{ fontFamily: mono, fontSize: '0.7rem', color: OCHRE }}>reddit  </span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}>rdt-cli → 42 threads</span></div>
+        <div><span style={{ fontFamily: mono, fontSize: '0.7rem', color: OCHRE }}>x/tw   </span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}>cookie session → 87 posts</span></div>
+        <div><span style={{ fontFamily: mono, fontSize: '0.7rem', color: OCHRE }}>youtube </span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}>yt-dlp → transcript</span></div>
+        <div><span style={{ fontFamily: mono, fontSize: '0.7rem', color: OCHRE }}>article </span><span style={{ fontFamily: mono, fontSize: '0.7rem', color: '#6b8f71' }}>Jina Reader → clean text</span></div>
+        <div style={{ background: '#252526', borderRadius: 4, padding: '6px 8px', marginTop: 4 }}>
+          <div style={{ fontFamily: mono, fontSize: '0.6rem', color: INK_MUTED, lineHeight: 1.5 }}>
+            each platform has a fallback list
+          </div>
+          <div style={{ fontFamily: mono, fontSize: '0.6rem', color: INK_MUTED, lineHeight: 1.5 }}>
+            first backend that works, wins
+          </div>
         </div>
       </div>
     ),

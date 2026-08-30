@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 const TERRACOTTA = '#c4785a';
 const TEAL = '#5a8a8a';
 const GREEN = '#3d7a45';
+const VIOLET = '#7a5f8a';
+const OCHRE = '#a8822c';
 const INK = '#1a1a1a';
 const INK_MUTED = '#8a867a';
 const MARBLE = '#e2e0db';
@@ -46,6 +48,28 @@ const tools = [
     when: 'You need to find what\'s broken',
     anchor: '3-chrome-devtools-mcp',
   },
+  {
+    name: 'browser-use',
+    icon: '/images/browser-use.svg',
+    color: VIOLET,
+    what: 'A second agent browses for you',
+    how: 'Indexed page elements',
+    cost: 'Lower',
+    costColor: GREEN,
+    when: 'You want to hand off the whole task',
+    anchor: '4-browser-use',
+  },
+  {
+    name: 'Agent Reach',
+    icon: '/images/agent-reach.svg',
+    color: OCHRE,
+    what: 'Claude gets into sites that block it',
+    how: 'Routes to CLIs and APIs',
+    cost: 'Lower',
+    costColor: GREEN,
+    when: 'A platform locks your agent out',
+    anchor: '5-agent-reach',
+  },
 ];
 
 export default function BrowserToolsMap() {
@@ -66,7 +90,7 @@ export default function BrowserToolsMap() {
       borderRadius: 8,
       overflow: 'hidden',
     }}>
-      <div style={{ height: 3, background: `linear-gradient(90deg, ${TERRACOTTA}, ${TEAL}, ${GREEN})` }} />
+      <div style={{ height: 3, background: `linear-gradient(90deg, ${TERRACOTTA}, ${TEAL}, ${GREEN}, ${VIOLET}, ${OCHRE})` }} />
       <div style={{ padding: '20px 24px 24px' }}>
         <div style={{
           fontFamily: display,
@@ -78,12 +102,12 @@ export default function BrowserToolsMap() {
           marginBottom: 16,
           textAlign: 'center' as const,
         }}>
-          Three Browser Tools for Claude Code
+          Five Ways In
         </div>
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(5, 1fr)',
           gap: 12,
         }}>
           {tools.map((t, i) => (
@@ -98,7 +122,7 @@ export default function BrowserToolsMap() {
                 flexDirection: 'column',
                 alignItems: 'center',
                 gap: 10,
-                padding: '18px 16px',
+                padding: '18px 12px',
                 borderRadius: 6,
                 border: `1px solid ${MARBLE}`,
                 background: '#fafaf7',
@@ -111,17 +135,25 @@ export default function BrowserToolsMap() {
                 boxShadow: `0 2px 8px ${t.color}18`,
               }}
             >
-              <img
-                src={t.useClaudeIcon ? undefined : t.icon}
-                alt=""
-                style={{
-                  width: 40,
-                  height: 40,
-                  borderRadius: 8,
-                  objectFit: 'cover',
-                  display: t.useClaudeIcon ? 'none' : 'block',
-                }}
-              />
+              {!t.useClaudeIcon && (
+                <img
+                  src={t.icon}
+                  alt=""
+                  style={{
+                    width: 40,
+                    height: 40,
+                    maxWidth: 'none',
+                    borderRadius: 8,
+                    objectFit: 'cover',
+                    display: 'block',
+                    // neutralise the .prose img rules meant for content images
+                    margin: 0,
+                    float: 'none',
+                    border: 'none',
+                    boxShadow: 'none',
+                  }}
+                />
+              )}
               {t.useClaudeIcon && (
                 <div style={{
                   width: 40,
@@ -139,7 +171,7 @@ export default function BrowserToolsMap() {
               )}
               <div style={{
                 fontFamily: display,
-                fontSize: '1rem',
+                fontSize: '0.9375rem',
                 fontWeight: 700,
                 color: INK,
                 lineHeight: 1.3,
@@ -153,8 +185,43 @@ export default function BrowserToolsMap() {
                 color: INK_MUTED,
                 lineHeight: 1.4,
                 textAlign: 'center',
+                flex: 1,
               }}>
                 {t.what}
+              </div>
+              <div style={{
+                width: '100%',
+                borderTop: `1px solid ${MARBLE}`,
+                paddingTop: 10,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 3,
+              }}>
+                <div style={{
+                  fontFamily: display,
+                  fontSize: '0.625rem',
+                  fontWeight: 600,
+                  color: INK_MUTED,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase' as const,
+                }}>
+                  Use when
+                </div>
+                <div style={{
+                  fontFamily: display,
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  color: t.color,
+                  lineHeight: 1.35,
+                  textAlign: 'center',
+                  minHeight: 32,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                  {t.when}
+                </div>
               </div>
               <div style={{
                 fontFamily: mono,

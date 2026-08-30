@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="Agent Reach">
+  <rect width="48" height="48" rx="12" fill="#f4efe2"/>
+  <path d="M24 24L13 14M24 24l11-10M24 24L14 34M24 24l10 10" stroke="#a8822c" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="24" cy="24" r="5" fill="#a8822c"/>
+  <circle cx="12.5" cy="13" r="3" fill="#ffffff" stroke="#a8822c" stroke-width="2"/>
+  <circle cx="35.5" cy="13" r="3" fill="#ffffff" stroke="#a8822c" stroke-width="2"/>
+  <circle cx="12.5" cy="35" r="3" fill="#ffffff" stroke="#a8822c" stroke-width="2"/>
+  <circle cx="35.5" cy="35" r="3" fill="#ffffff" stroke="#a8822c" stroke-width="2"/>
+</svg>

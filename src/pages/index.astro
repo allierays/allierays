@@ -23,6 +23,7 @@ const featured = posts.slice(0, 5).map((post) => ({
       year: 'numeric',
       month: 'long',
       day: 'numeric',
+      timeZone: 'UTC',
     }),
     image: post.data.image,
     tags: post.data.tags,
@@ -53,6 +54,7 @@ const remaining = posts.slice(5);
             year: 'numeric',
             month: 'long',
             day: 'numeric',
+            timeZone: 'UTC',
           });
           const readTime = getReadingTime(post.body || '');
           return (

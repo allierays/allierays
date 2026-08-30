@@ -44,9 +44,15 @@ export default function ToolHeader({ name, maker, icon, color, isClaudeIcon }: T
           style={{
             width: 48,
             height: 48,
+            maxWidth: 'none',
             borderRadius: 12,
             objectFit: 'cover',
             flexShrink: 0,
+            // neutralise the .prose img rules meant for content images
+            margin: 0,
+            float: 'none',
+            border: 'none',
+            boxShadow: 'none',
           }}
         />
       )}

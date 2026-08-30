@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 const TERRACOTTA = '#c4785a';
 const TEAL = '#5a8a8a';
 const GREEN = '#3d7a45';
+const VIOLET = '#7a5f8a';
+const OCHRE = '#a8822c';
 const INK = '#1a1a1a';
 const INK_MUTED = '#8a867a';
 const MARBLE = '#e2e0db';
@@ -20,6 +22,8 @@ const rows = [
       { text: 'For seeing', color: TERRACOTTA },
       { text: 'For doing', color: TEAL },
       { text: 'For debugging', color: GREEN },
+      { text: 'For delegating', color: VIOLET },
+      { text: 'For reaching', color: OCHRE },
     ],
   },
   {
@@ -28,6 +32,8 @@ const rows = [
       { text: 'Claude sees your screen' },
       { text: 'Claude clicks and types for you' },
       { text: 'Claude reads error messages from the browser' },
+      { text: 'A second agent runs the whole task on its own' },
+      { text: 'A router into sites that block agents' },
     ],
   },
   {
@@ -36,6 +42,8 @@ const rows = [
       { text: 'Screenshots', bold: true },
       { text: 'Page code', bold: true },
       { text: 'Console & network', bold: true },
+      { text: 'Indexed elements', bold: true },
+      { text: 'Clean text & feeds', bold: true },
     ],
   },
   {
@@ -43,6 +51,8 @@ const rows = [
     values: [
       { text: 'Higher', badge: true, color: '#b85c5c' },
       { text: 'Lower', badge: true, color: GREEN },
+      { text: 'Lower', badge: true, color: GREEN },
+      { text: 'Lowest', badge: true, color: GREEN },
       { text: 'Lower', badge: true, color: GREEN },
     ],
   },
@@ -52,6 +62,8 @@ const rows = [
       { text: 'You need Claude to see the page', color: TERRACOTTA },
       { text: 'You want to automate browser tasks', color: TEAL },
       { text: 'You need to find what\'s broken', color: GREEN },
+      { text: 'You want to hand off the whole task', color: VIOLET },
+      { text: 'A platform locks your agent out', color: OCHRE },
     ],
   },
   {
@@ -60,6 +72,8 @@ const rows = [
       { text: '"fill out the form in Chrome"', code: true },
       { text: '"write a Playwright script"', code: true },
       { text: '"check the console logs"', code: true },
+      { text: '"use browser-use to..."', code: true },
+      { text: '"use agent-reach to..."', code: true },
     ],
   },
 ];
@@ -81,6 +95,8 @@ export default function CompareTable() {
           { name: 'Claude in Chrome', color: TERRACOTTA, icon: '👁', why: 'For seeing' },
           { name: 'Playwright', color: TEAL, icon: '🎭', why: 'For doing' },
           { name: 'DevTools', color: GREEN, icon: '🔧', why: 'For debugging' },
+          { name: 'browser-use', color: VIOLET, icon: '🤖', why: 'For delegating' },
+          { name: 'Agent Reach', color: OCHRE, icon: '🛰', why: 'For reaching' },
         ].map((tool, ti) => (
           <div key={tool.name} style={{
             background: BG_WHITE,
@@ -120,7 +136,7 @@ export default function CompareTable() {
       {/* Header */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: '140px 1fr 1fr 1fr',
+        gridTemplateColumns: '104px repeat(5, 1fr)',
         background: BG_WARM,
         borderBottom: `1px solid ${MARBLE}`,
       }}>
@@ -129,6 +145,8 @@ export default function CompareTable() {
           { name: 'Claude in Chrome', icon: '/images/5-techniques-debug-claude-code.svg', useClaudeIcon: true, color: TERRACOTTA },
           { name: 'Playwright', icon: '/images/Playwright_Logo.svg.png', color: TEAL },
           { name: 'DevTools', icon: '/images/chrome-devtools.jpeg', color: GREEN },
+          { name: 'browser-use', icon: '/images/browser-use.svg', color: VIOLET },
+          { name: 'Agent Reach', icon: '/images/agent-reach.svg', color: OCHRE },
         ].map((tool) => (
           <div key={tool.name} style={{
             textAlign: 'center',
@@ -145,7 +163,22 @@ export default function CompareTable() {
                 <path d="M16 4L18 13L27 11L20 16L27 21L18 19L16 28L14 19L5 21L12 16L5 11L14 13Z" fill={tool.color} />
               </svg>
             ) : (
-              <img src={tool.icon} alt="" style={{ width: 32, height: 32, borderRadius: 6, objectFit: 'cover' }} />
+              <img
+                src={tool.icon}
+                alt=""
+                style={{
+                  width: 32,
+                  height: 32,
+                  maxWidth: 'none',
+                  borderRadius: 6,
+                  objectFit: 'cover',
+                  // neutralise the .prose img rules meant for content images
+                  margin: 0,
+                  float: 'none',
+                  border: 'none',
+                  boxShadow: 'none',
+                }}
+              />
             )}
             <div style={{ fontFamily: display, fontSize: '0.8rem', fontWeight: 700, color: INK }}>{tool.name}</div>
           </div>
@@ -158,13 +191,13 @@ export default function CompareTable() {
           key={row.label}
           style={{
             display: 'grid',
-            gridTemplateColumns: '140px 1fr 1fr 1fr',
+            gridTemplateColumns: '104px repeat(5, 1fr)',
             background: i % 2 === 0 ? BG_WHITE : BG_WARM,
             borderBottom: i < rows.length - 1 ? `1px solid ${MARBLE}` : 'none',
           }}
         >
           <div style={{
-            padding: '12px 16px',
+            padding: '12px 12px',
             fontFamily: display,
             fontSize: '0.8rem',
             fontWeight: 700,
@@ -176,7 +209,7 @@ export default function CompareTable() {
           </div>
           {row.values.map((val, vi) => (
             <div key={vi} style={{
-              padding: '12px 12px',
+              padding: '12px 8px',
               textAlign: 'center',
               display: 'flex',
               alignItems: 'center',

@@ -1,7 +1,8 @@
 ---
-title: "3 Ways to Give Claude Access to Your Browser"
-description: "Claude in Chrome, Playwright, and DevTools MCP. What each one does, how it sees the page, and when to use which."
-date: 2026-04-25
+title: "5 Ways to Give Claude Access to Your Browser"
+description: "Claude in Chrome, Playwright, DevTools MCP, browser-use, and Agent Reach. What each one does, how it sees the page, and when to use which."
+date: 2026-08-01
+updated: 2026-08-30
 tags: [claude-code, mcp, browser-automation]
 image: "/images/browser-tools-claude-code.png"
 hideHeaderImage: true
@@ -15,9 +16,9 @@ import CompareTable from '../../components/diagrams/browser-tools/CompareTable';
 import ToolHeader from '../../components/diagrams/browser-tools/ToolHeader';
 import HowItSees from '../../components/diagrams/browser-tools/HowItSees';
 
-Claude Code can write code, read files, and run commands. But until recently, it couldn't see your browser. It couldn't check if the UI you just shipped actually looks right. It couldn't read the error in your console. It couldn't fill out a form to test a workflow.
+Claude Code can write code, read files, and run commands. But until recently, it couldn't see your browser. It couldn't check if the UI you just shipped actually looks right. It couldn't fill out a form to test a workflow. It couldn't read the error in your console. It couldn't take a long task and just go do it. And if the page wanted a login, it couldn't get in at all.
 
-Now there are three tools that give Claude browser access. They all solve the same problem but in different ways.
+Now there are five tools that give Claude browser access. They overlap, but each one is good at something the others aren't.
 
 <BrowserToolsMap client:only="react" />
 
@@ -175,6 +176,120 @@ Chrome DevTools MCP gives Claude access to the same developer tools panel that e
   }
 ]} />
 
+## 4. browser-use
+
+<ToolHeader client:load name="browser-use" maker="Browser Use" icon="/images/browser-use.svg" color="#7a5f8a" />
+
+The first three tools all work the same way underneath: Claude drives the browser one step at a time. [browser-use](https://github.com/browser-use/browser-use) inverts that. It's a browser agent of its own — you hand it a task in one sentence, and it plans, clicks, and reports back. Claude Code shells out to the `browser-use` CLI and waits for the result.
+
+It reads the page as a numbered list of interactive elements. Every clickable thing gets an index, and anything new since the last step is marked with a star, so the agent can tell "this button just appeared" from "this button was always here."
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'use browser-use to find the top 5 trending Python repos and summarize them' },
+  { type: 'text', content: 'I\'ll hand this off to browser-use.' },
+  { type: 'action', content: 'Bash: browser-use run "find top 5 trending Python repos, summarize each"' },
+  { type: 'action', content: 'Step 1 — Navigate to github.com/trending' },
+  { type: 'action', content: 'Step 2 — Click [13]<select Language /> → Python' },
+  { type: 'action', content: 'Step 3 — Extract repo names, stars, descriptions' },
+  { type: 'text', content: 'Done. 5 repos found. Here\'s the summary...' },
+]} cwd="~/my-app" />
+
+<HowItSees client:only="react" tool="browseruse" />
+
+**When to use it:**
+- Multi-step tasks you don't want to narrate — "book the cheapest flight," "pull last month's invoices"
+- Scraping across many pages where you don't want to script every click
+- Running browser work on a headless machine or in CI
+- When you'd rather describe the outcome than the steps
+
+**Good to know:**
+- Python library, MIT licensed, plus a hosted cloud option
+- Can drive local Chrome over CDP and reuse your existing profile and logins
+- The cloud tier adds proxies, CAPTCHA solving, and persistent profiles
+- Cheap for Claude Code specifically — the sub-agent burns its own tokens, and Claude only sees the final answer
+- Because it decides its own steps, you get less control over exactly what it does
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "Setup: browser-use",
+    content: `1. Install the CLI (needs Python 3.11+):
+   uv tool install browser-use
+
+2. Check the install:
+   browser-use doctor
+
+3. Register the Claude Code skill:
+   browser-use skill install
+
+4. Sign up at cloud.browser-use.com, then authenticate:
+   browser-use auth login
+
+5. Prompt Claude Code normally, naming the tool:
+   "use browser-use to open github.com/trending and summarize the top repos"
+
+Claude Code runs it through Bash, so there is no MCP server to add.
+To use your own local Chrome instead of a cloud browser, point
+BU_CDP_URL at a Chrome running with --remote-debugging-port=9222.`
+  }
+]} />
+
+## 5. Agent Reach
+
+<ToolHeader client:load name="Agent Reach" maker="Panniantong" icon="/images/agent-reach.svg" color="#a8822c" />
+
+The first four tools assume the page will let you in. Plenty won't. Reddit throttles you, X wants a login, Instagram blocks anything that isn't a browser, and half the internet returns a JavaScript shell with no content in it.
+
+[Agent Reach](https://github.com/Panniantong/agent-reach) is the odd one out here — it isn't a browser driver at all. It's a router. It keeps an ordered list of backends for each platform, probes them to see which actually works on your machine, and hands the job to whichever one wins. Some of those backends are CLIs (`yt-dlp`, `gh`, `rdt-cli`), some are APIs (Jina Reader for clean article text, Exa for search), and some borrow the Chrome session you're already logged into.
+
+<Terminal client:load lines={[
+  { type: 'prompt', content: 'use agent-reach to find what people are saying about Claude Code on Reddit and X' },
+  { type: 'text', content: 'I\'ll route this through Agent Reach.' },
+  { type: 'action', content: 'Probe backends — rdt-cli ✓, twitter-cli ✓, Jina Reader ✓' },
+  { type: 'action', content: 'Reddit r/ClaudeAI — 42 threads, top 10 by score' },
+  { type: 'action', content: 'X via cookie session — 87 posts' },
+  { type: 'action', content: 'Jina Reader — 3 linked posts → clean text' },
+  { type: 'text', content: 'Three themes: hooks are underused, MCP setup is the top complaint, and everyone wants better subagent control.' },
+]} cwd="~/my-app" />
+
+<HowItSees client:only="react" tool="agentreach" />
+
+**When to use it:**
+- Research across social platforms that block scrapers
+- Reading something behind a login you already have
+- Pulling YouTube transcripts, RSS feeds, or clean article text out of a cluttered page
+- When a platform's API is gated, expensive, or doesn't exist
+
+**Good to know:**
+- MIT licensed and free — the tools it routes to are open source and the APIs it leans on have free tiers
+- Covers X, Reddit, YouTube, Bilibili, XiaoHongShu, Instagram, Facebook, LinkedIn, GitHub, RSS, and any URL via Jina Reader
+- Cookies and browser sessions stay on your machine
+- Because it's a router, what works depends on what's installed — the installer tells you which backends came up
+- Not the tool for testing your own UI. Use one of the other four for that.
+
+<Accordion client:load allowMultiple items={[
+  {
+    title: "Setup: Agent Reach",
+    content: `1. Paste this into Claude Code and let it run the installer:
+   Install Agent Reach: https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/install.md
+
+2. The Python installer checks your dependencies and reports
+   which backends are available. Read that output — it tells you
+   which platforms will work before you try them.
+
+3. For gated platforms (X, XiaoHongShu), export cookies with the
+   Cookie-Editor browser extension. They stay local.
+
+4. For Reddit, Instagram, and Facebook, it reuses the Chrome
+   session you're already signed into. Desktop only.
+
+5. To update later:
+   Update Agent Reach: https://raw.githubusercontent.com/Panniantong/agent-reach/main/docs/update.md
+
+There is no MCP server to add. Claude Code calls the underlying
+tools directly once they are installed.`
+  }
+]} />
+
 ## Quick Comparison
 
 <CompareTable client:only="react" />
@@ -187,6 +302,10 @@ Chrome DevTools MCP gives Claude access to the same developer tools panel that e
 
 **Use DevTools** when something is broken and you can't see why. The page looks fine but the API is failing silently, or the page is slow and you need to know what's causing it.
 
-You can use all three in the same project. They solve different problems.
+**Use browser-use** when the task is long and you don't care how it gets done. The first three keep Claude in the driver's seat, step by step. This one hands the wheel over.
 
-<Callout client:only="react" text="Claude in Chrome for seeing. Playwright for doing. DevTools for understanding what's broken underneath." />
+**Use Agent Reach** when the problem isn't driving the browser, it's getting in at all. If the answer is on Reddit or X or behind a login wall, none of the other four will help much — they can see the page fine, they just can't reach it.
+
+You can use all five in the same project. They solve different problems.
+
+<Callout client:only="react" text="Claude in Chrome for seeing. Playwright for doing. DevTools for understanding what's broken underneath. browser-use for handing the whole thing off. Agent Reach for getting in the door." />
