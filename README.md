@@ -12,7 +12,7 @@ Head of Applied AI @ Go1 / Building Applied AI tools and platforms
 
 #### About Me
 
-I build agentic systems, MCPs, and AI pipelines. Before that, 15 years of enterprise architecture. MIT Applied Agentic AI. Four hackathon wins including 1st place at the Redis MCP AI Agents Hackathon and top 30 at Anthropic's Build with Claude.
+I build agentic systems, MCPs, and AI pipelines. Before that, 15 years of enterprise architecture. MIT Applied Agentic AI. Four hackathon wins including 1st place at the Redis MCP AI Agents Hackathon and top 30 out of 13,000 at Anthropic's Built with Opus 4.6 hackathon.
 
 #### What I Write About
 

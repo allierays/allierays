@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
-import { projects } from '../data/projects';
+import { projects, projectUrl } from '../data/projects';
 import { AUTHOR_FULL, BLURB, CONTACT, TAGLINE } from '../data/site';
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
@@ -33,7 +33,7 @@ ${posts
 ## Work
 
 ${projects
-  .map((p) => `- ${p.title} (${p.date}) — ${p.stack} — https://github.com/allierays/${p.repo}: ${p.body}`)
+  .map((p) => `- ${p.title} (${p.date}) — ${p.stack}${projectUrl(p) ? ` — ${projectUrl(p)}` : ''}: ${p.body}`)
   .join('\n')}
 
 ## Pages
