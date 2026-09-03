@@ -10,11 +10,11 @@ export const BLURB =
   'Personal site about Applied AI: building real tools, evaluating them, and what actually works when shipping AI in production.';
 
 export const AUTHOR_SHORT =
-  'Allie Rays — Head of Applied AI at Go1, leading the Applied AI platform behind its go-to-market teams.';
+  'Allie Rays — Head of Applied AI at Go1, leading AI adoption and tooling for its go-to-market teams.';
 
 export const AUTHOR_FULL = [
-  'Allie Rays — Head of Applied AI at Go1, where the job is leading the AI platform the',
-  'go-to-market teams use every day: 12 production applications and 7 MCP servers behind enterprise SSO,',
+  'Allie Rays — Head of Applied AI at Go1, where the job is leading AI adoption and tooling for the',
+  'go-to-market teams: 12 production applications and 7 MCP servers behind enterprise SSO,',
   'serving teams across three regions, with the evaluation harnesses that show whether any of it works.',
   'Fifteen years in enterprise pre-sales and technical architecture before that, with a background in',
   'security and compliance (FedRAMP, SOC2, HIPAA), cloud architecture, and API integrations. Studied',
