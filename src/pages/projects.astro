@@ -3,9 +3,12 @@ import Base from '../layouts/Base.astro';
 import { projects, projectUrl } from '../data/projects';
 ---
 
-<Base title="Work — Allie Rays" description="Ethos Academy, Agentic Loop, Amplify, and other things I've built." fullWidth>
-  <section style="margin-top: 2rem;">
-    <h1 style="background: linear-gradient(135deg, #1e3a5f 0%, #0891b2 50%, #14b8a6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Work</h1>
+<Base title="Projects — Allie Rays" description="Projects built by Allie Rays." fullWidth>
+  <section class="projects">
+    <h1>Projects</h1>
+    <p class="projects-intro">
+      Things I've built to explore how agents reason, remember, evaluate, and get useful work done.
+    </p>
 
     <div class="project-list">
       {projects.map((project) => (
@@ -15,15 +18,9 @@ import { projects, projectUrl } from '../data/projects';
           <p class="project-meta">{project.stack}</p>
           <p>{project.body}</p>
           {projectUrl(project) && (
-          <a
-            class="action-btn"
-            href={projectUrl(project)}
-            target="_blank"
-            rel="noopener"
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
-            {project.repo ? 'View on GitHub' : 'Visit'}
-          </a>
+            <a class="action-btn" href={projectUrl(project)} target="_blank" rel="noopener">
+              View on GitHub
+            </a>
           )}
         </div>
       ))}
@@ -32,22 +29,35 @@ import { projects, projectUrl } from '../data/projects';
 </Base>
 
 <style>
+  .projects { max-width: 1200px; margin: 2rem auto 0; }
+  .projects > h1 {
+    font-family: var(--font-display);
+    font-size: 2.5rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #1e3a5f 0%, #0891b2 50%, #14b8a6 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .projects-intro {
+    max-width: 42rem;
+    margin: 0;
+    color: var(--ink-light);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
   .project-list {
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
-    margin-top: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--marble);
   }
-
-  .project {
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid var(--marble);
-  }
-
-  .project:last-child {
-    border-bottom: none;
-  }
-
+  .project { padding-bottom: 2.5rem; border-bottom: 1px solid var(--marble); }
+  .project:last-child { border-bottom: none; }
   .project-date {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
@@ -55,7 +65,6 @@ import { projects, projectUrl } from '../data/projects';
     letter-spacing: 0.06em;
     margin: 0 0 0.35rem;
   }
-
   .project h2 {
     font-size: 1.25rem;
     font-weight: 400;
@@ -63,7 +72,6 @@ import { projects, projectUrl } from '../data/projects';
     letter-spacing: 0.01em;
     margin: 0 0 0.25rem;
   }
-
   .project-meta {
     font-family: var(--font-mono);
     font-size: 0.6875rem;
@@ -71,9 +79,5 @@ import { projects, projectUrl } from '../data/projects';
     letter-spacing: 0.04em;
     margin-bottom: 0.75rem;
   }
-
-  .project p:last-of-type {
-    margin-bottom: 1rem;
-    font-size: 0.9375rem;
-  }
+  .project p:last-of-type { margin-bottom: 1rem; font-size: 0.9375rem; }
 </style>

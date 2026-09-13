@@ -30,7 +30,7 @@ ${posts
   })
   .join('\n')}
 
-## Work
+## Projects
 
 ${projects
   .map((p) => `- ${p.title} (${p.date}) — ${p.stack}${projectUrl(p) ? ` — ${projectUrl(p)}` : ''}: ${p.body}`)
@@ -40,7 +40,7 @@ ${projects
 
 - [Writing](/): Every post, newest first
 - [About](/about): Who I am and what I've built
-- [Work](/projects): ${projects.map((p) => p.title).join(', ')}
+- [Projects](/projects): ${projects.map((p) => p.title).join(', ')}
 
 ## Feeds
 

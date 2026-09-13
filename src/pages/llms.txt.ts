@@ -27,7 +27,7 @@ ${TOPICS.map((t) => `- ${t}`).join('\n')}
 
 - / — Writing: every post, newest first
 - /about — who I am and what I've built
-- /projects — Work: ${projects.map((p) => p.title).join(', ')}
+- /projects — Projects: ${projects.map((p) => p.title).join(', ')}
 - /rss.xml — RSS feed of all posts
 
 ## Latest Posts

@@ -1,5 +1,5 @@
 // Shared by /projects and the llms.txt indexes, so they cannot drift apart.
-// Dates are when each repo was started. Newest first.
+// Newest first.
 
 export interface Project {
   title: string;
@@ -19,10 +19,10 @@ export function projectUrl(p: Project): string | undefined {
 
 export const projects: Project[] = [
   {
-    title: 'Go1 Applied AI Platform',
-    date: 'November 2025',
-    stack: 'Python · FastAPI · FastMCP · React 19 · PostgreSQL · Qdrant · Celery · AWS',
-    body: "The internal AI platform behind Go1's go-to-market teams, which I lead as Head of Applied AI. 12 production applications and 7 MCP servers exposing 84 tools to Claude, ChatGPT, Codex, and Cursor behind Okta SSO, serving teams across AMER, APAC, and EMEA. Content Compass enriches and searches a 111K-item learning catalog with hybrid retrieval and an LLM reranker (86 active users). GTM Intelligence puts a semantic metric layer over daily Databricks snapshots, reconciled nightly against RevOps, so a seller can ask how the quarter is tracking and get a number finance will defend. AEEA is a multi-agent executive assistant that mines each rep's book, tickets the to-dos, and pre-drafts the work. Every piece ships with an eval harness: LLM-as-judge with precision@k baselines and an expert-fail triage loop. Private repository.",
+    title: 'Applied AI at Go1',
+    date: '2026–present',
+    stack: 'Applied AI · Agentic systems · Evaluation',
+    body: 'I lead Go1\'s Applied AI department. We build internal tools and enable Go1\'s teams to multiply their impact with AI. Our work covers agentic architecture, multi-agent systems, MCP, evaluation, AI governance, and adoption.',
   },
   {
     title: 'Amplify',

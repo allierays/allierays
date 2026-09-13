@@ -4,6 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 import react from '@astrojs/react';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -13,8 +14,9 @@ export default defineConfig({
     '/posts/5-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
     '/posts/6-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
   },
-  integrations: [mdx(), sitemap(), react()],
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/exam-prep') }), react()],
   vite: {
+    plugins: [tailwindcss()],
     optimizeDeps: {
       include: ['@xyflow/react', '@xyflow/system', 'react', 'react-dom'],
     },

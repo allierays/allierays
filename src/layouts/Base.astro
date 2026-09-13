@@ -6,9 +6,11 @@ interface Props {
   fullWidth?: boolean;
   ogType?: string;
   jsonLd?: Record<string, any>;
+  /** Personal pages that should not be indexed or listed in the sitemap. */
+  noindex?: boolean;
 }
 
-const { title, description = 'Allie Rays — building with AI, writing about what works.', image, fullWidth = false, ogType = 'website', jsonLd } = Astro.props;
+const { title, description = 'Allie Rays — building with AI, writing about what works.', image, fullWidth = false, ogType = 'website', jsonLd, noindex = false } = Astro.props;
 const ogImage = image || '/images/allie-headshot-2026.png';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -37,6 +39,7 @@ const defaultJsonLd = {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -107,7 +110,7 @@ const defaultJsonLd = {
       <nav class="header-nav">
         <a href="/about">About</a>
         <a href="/">Writing</a>
-        <a href="/projects">Work</a>
+        <a href="/projects">Projects</a>
       </nav>
     </header>
 
@@ -139,5 +142,5 @@ const defaultJsonLd = {
 </html>
 
 <style is:global>
-  @import '../styles/global.css';
+  @import '../styles/app.css';
 </style>

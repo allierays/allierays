@@ -1,0 +1,17 @@
+/* Stylesheet entry point.
+ *
+ * The site's look is hand-written CSS in global.css. One ported component (the
+ * ChatGPT field guide) was authored against Tailwind, so Tailwind's utilities
+ * are pulled in alongside it — without preflight, which would reset the whole
+ * site's typography.
+ *
+ * Cascade layers do the arbitration. global.css sits in `base`, Tailwind's
+ * utilities in `utilities`, so a utility class always wins inside the ported
+ * component while nothing changes anywhere else (no other page uses one).
+ */
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss/theme.css' layer(theme);
+@import './global.css' layer(base);
+@import './field-guide.css' layer(base);
+@import 'tailwindcss/utilities.css' layer(utilities);

@@ -1,0 +1,13 @@
+---
+import Base from '../layouts/Base.astro';
+import ExamApp from '../components/exam/ExamApp';
+---
+
+<Base
+  title="CCAR-P Prep — Allie Rays"
+  description="Personal drilling for the Claude Certified Architect, Professional exam."
+  fullWidth
+  noindex
+>
+  <ExamApp client:only="react" />
+</Base>

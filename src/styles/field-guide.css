@@ -1,0 +1,141 @@
+/* Scope resets for the ported field guide.
+ *
+ * Skipping Tailwind's preflight keeps the rest of the site intact, but it also
+ * means global.css's prose rules (paragraph margins, list padding, heading
+ * counters, and the floated-image rule) reach into a component that expects a
+ * blank slate. `.fg-scope` restores that blank slate. These live in the `base`
+ * layer with global.css, so Tailwind utilities still override them.
+ */
+.fg-scope {
+  /* The guide shipped in DM Sans. Using the site's own display face instead
+   * keeps it looking native to the blog rather than like a pasted screenshot. */
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 1.5;
+  color: #394646;
+}
+
+.fg-scope p,
+.fg-scope h1,
+.fg-scope h2,
+.fg-scope h3,
+.fg-scope h4,
+.fg-scope ul,
+.fg-scope ol,
+.fg-scope li {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+  color: inherit;
+  counter-increment: none;
+}
+
+.fg-scope h2::before,
+.fg-scope h3::before {
+  content: none;
+}
+
+.fg-scope ul,
+.fg-scope ol {
+  list-style: none;
+}
+
+.fg-scope button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.fg-scope a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.fg-scope img,
+.fg-scope svg {
+  float: none;
+  max-width: none;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* The guide is an app screen, not body copy: let it use the full prose width,
+ * and sit it on a white card so it reads as a thing embedded in the article
+ * rather than as more article. This is the panel it had on its own page. */
+.fg-scope {
+  max-width: 100%;
+  margin: 2rem 0 2.5rem;
+  background: var(--bg-card);
+  /* The page ground is only a couple of percent off white, so the border is
+   * what makes this read as a card at all. This is the guide's own edge
+   * colour, at full strength rather than the half it used on its own page. */
+  border: 1px solid #ded8ce;
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(26, 25, 21, 0.04), 0 8px 24px rgba(26, 25, 21, 0.05);
+  padding: 20px;
+}
+
+.fg-scope--fullscreen {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  min-height: 0;
+  max-height: 100vh;
+  max-height: 100dvh;
+  max-width: none;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  padding: 24px;
+}
+
+.fg-scope--fullscreen .fg-toolbar {
+  flex: 0 0 auto;
+}
+
+.fg-scope--fullscreen .fg-guide-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+
+@media (min-width: 768px) {
+  .fg-scope {
+    padding: 28px;
+  }
+
+  .fg-scope--fullscreen {
+    padding: 32px;
+  }
+}
+
+/* Keep the domain index beside the current visual on desktop. The article's
+ * prose container can otherwise win the intrinsic sizing calculation and
+ * make the grid fall back to a single, very wide column. */
+@media (min-width: 1024px) {
+  .fg-scope .fg-guide-body {
+    grid-template-columns: 250px minmax(0, 1fr) !important;
+  }
+
+  .fg-scope .fg-guide-body > * {
+    min-width: 0;
+  }
+}

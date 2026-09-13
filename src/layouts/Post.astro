@@ -8,10 +8,12 @@ interface Props {
   updated?: Date;
   tags?: string[];
   image?: string;
+  ogImage?: string;
   hideHeaderImage?: boolean;
 }
 
-const { title, description, date, updated, tags = [], image, hideHeaderImage = false } = Astro.props;
+const { title, description, date, updated, tags = [], image, ogImage, hideHeaderImage = false } = Astro.props;
+const socialImage = ogImage || image;
 
 const formatted = date.toLocaleDateString('en-US', {
   year: 'numeric',
@@ -44,12 +46,12 @@ const articleJsonLd = {
     name: 'Allie Rays',
     url: 'https://allierays.com',
   },
-  ...(image && { image: `https://allierays.com${image}` }),
+  ...(socialImage && { image: `https://allierays.com${socialImage}` }),
   ...(tags.length > 0 && { keywords: tags.join(', ') }),
 };
 ---
 
-<Base title={`${title} — Allie Rays`} description={description} image={image} fullWidth ogType="article" jsonLd={articleJsonLd}>
+<Base title={`${title} — Allie Rays`} description={description} image={socialImage} fullWidth ogType="article" jsonLd={articleJsonLd}>
   <article>
     <header style="margin-bottom: 2.5rem; max-width: 1200px; margin-left: auto; margin-right: auto;">
       <time
