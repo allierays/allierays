@@ -12,6 +12,7 @@ const posts = defineCollection({
     draft: z.boolean().default(false),
     image: z.string().optional(),
     ogImage: z.string().optional(),
+    ogTitle: z.string().optional(),
     shortTitle: z.string().optional(),
     hideHeaderImage: z.boolean().default(false),
   }),

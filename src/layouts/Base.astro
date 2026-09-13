@@ -3,6 +3,7 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  ogTitle?: string;
   fullWidth?: boolean;
   ogType?: string;
   jsonLd?: Record<string, any>;
@@ -10,7 +11,7 @@ interface Props {
   noindex?: boolean;
 }
 
-const { title, description = 'Allie Rays — building with AI, writing about what works.', image, fullWidth = false, ogType = 'website', jsonLd, noindex = false } = Astro.props;
+const { title, description = 'Allie Rays — building with AI, writing about what works.', image, ogTitle = title, fullWidth = false, ogType = 'website', jsonLd, noindex = false } = Astro.props;
 const ogImage = image || '/images/allie-headshot-2026.png';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -47,14 +48,14 @@ const defaultJsonLd = {
     <!-- Open Graph -->
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={new URL(ogImage, Astro.site)} />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@allierays" />
-    <meta name="twitter:title" content={title} />
+    <meta name="twitter:title" content={ogTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
 
