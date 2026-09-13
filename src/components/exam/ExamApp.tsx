@@ -37,6 +37,18 @@ import {
 
 type Mode = 'plan' | 'study' | 'drill' | 'mock' | 'data';
 
+function initialDrillDomain(): DomainId | null {
+  if (typeof window === 'undefined') return null;
+  const value = Number(new URLSearchParams(window.location.search).get('domain'));
+  return value >= 1 && value <= 7 ? value as DomainId : null;
+}
+
+function initialStudyTarget(): string | null {
+  if (typeof window === 'undefined') return null;
+  const value = new URLSearchParams(window.location.search).get('objective');
+  return value && /^\d+\.\d+$/.test(value) ? value : null;
+}
+
 const MODES: { id: Mode; label: string }[] = [
   { id: 'plan', label: 'Plan' },
   { id: 'study', label: 'Study' },
@@ -47,9 +59,13 @@ const MODES: { id: Mode; label: string }[] = [
 
 export default function ExamApp() {
   const store = useStore();
-  const [mode, setMode] = useState<Mode>('plan');
-  const [drillDomain, setDrillDomain] = useState<DomainId | null>(null);
-  const [studyTarget, setStudyTarget] = useState<string | null>(null);
+  const [mode, setMode] = useState<Mode>(() => {
+    if (typeof window === 'undefined') return 'plan';
+    const requested = new URLSearchParams(window.location.search).get('mode');
+    return requested === 'drill' || requested === 'study' ? requested : 'plan';
+  });
+  const [drillDomain, setDrillDomain] = useState<DomainId | null>(initialDrillDomain);
+  const [studyTarget, setStudyTarget] = useState<string | null>(initialStudyTarget);
 
   /** A missed question sends you to its objective note. */
   const goStudy = (objective: string) => {
