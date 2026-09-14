@@ -7,7 +7,8 @@ const posts = (await getCollection('posts'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-function getReadingTime(text: string): string {
+function getReadingTime(text: string, override?: number): string {
+  if (override) return `${override} min read`;
   const words = text.trim().split(/\s+/).length;
   const minutes = Math.max(1, Math.round(words / 230));
   return `${minutes} min read`;
@@ -27,7 +28,7 @@ const featured = posts.slice(0, 5).map((post) => ({
     }),
     image: post.data.image,
     tags: post.data.tags,
-    readingTime: getReadingTime(post.body || ''),
+    readingTime: getReadingTime(post.body || '', post.data.readingTime),
 }));
 
 // Remaining posts for the list below
@@ -56,7 +57,7 @@ const remaining = posts.slice(5);
             day: 'numeric',
             timeZone: 'UTC',
           });
-          const readTime = getReadingTime(post.body || '');
+          const readTime = getReadingTime(post.body || '', post.data.readingTime);
           return (
             <li class="post-card">
               {post.data.image && (

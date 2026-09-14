@@ -15,6 +15,7 @@ const posts = defineCollection({
     ogTitle: z.string().optional(),
     shortTitle: z.string().optional(),
     hideHeaderImage: z.boolean().default(false),
+    readingTime: z.number().optional(),
   }),
 });
 
