@@ -220,7 +220,7 @@ function parsePage(path) {
 function classify(title) {
   const t = title.toLowerCase();
   if (t.startsWith('concept')) return 'concept';
-  if (t.startsWith('what you must')) return 'abilities';
+  if (t.startsWith('what you must') || t.startsWith('key facts')) return 'abilities';
   if (t.startsWith('making the decision')) return 'decide';
   if (t.startsWith('numbers')) return 'numbers';
   if (t.startsWith('how the exam')) return 'exam';

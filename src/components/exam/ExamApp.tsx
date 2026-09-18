@@ -17,6 +17,7 @@ import { domainReadiness, toMarkdownReport } from '../../data/exam/scoring';
 import { useStore } from './useStore';
 import Readiness from './Readiness';
 import Study from './Study';
+import Cram from './Cram';
 import Drill from './Drill';
 import Mock from './Mock';
 import {
@@ -35,7 +36,7 @@ import {
   WARM,
 } from './ui';
 
-type Mode = 'plan' | 'study' | 'drill' | 'mock' | 'data';
+type Mode = 'plan' | 'study' | 'cram' | 'drill' | 'mock' | 'data';
 
 function initialDrillDomain(): DomainId | null {
   if (typeof window === 'undefined') return null;
@@ -52,6 +53,7 @@ function initialStudyTarget(): string | null {
 const MODES: { id: Mode; label: string }[] = [
   { id: 'plan', label: 'Plan' },
   { id: 'study', label: 'Study' },
+  { id: 'cram', label: 'Cram' },
   { id: 'drill', label: 'Drill' },
   { id: 'mock', label: 'Mock exam' },
   { id: 'data', label: 'Data' },
@@ -148,6 +150,8 @@ export default function ExamApp() {
         {mode === 'study' && (
           <Study target={studyTarget} onClearTarget={() => setStudyTarget(null)} />
         )}
+
+        {mode === 'cram' && <Cram />}
 
         {mode === 'drill' && (
           <Drill

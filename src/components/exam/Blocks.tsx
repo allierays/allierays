@@ -393,7 +393,7 @@ export const SECTION_TONES: Record<
   numbers: { label: 'Numbers', color: '#8a6d0b', bg: '#f4f1e6' },
   exam: { label: 'On the exam', color: '#a8452a', bg: '#fdf3f0' },
   worked: { label: 'Worked example', color: '#4a6b3d', bg: '#f2f7f0' },
-  abilities: { label: 'You must be able to', color: '#22525a', bg: '#eef3f4' },
+  abilities: { label: 'Key facts', color: '#22525a', bg: '#eef3f4' },
   selfcheck: { label: 'Self-check', color: '#22525a', bg: '#eef3f4' },
   sources: { label: 'Sources', color: INK_MUTED, bg: WARM },
   other: { label: '', color: INK_MUTED, bg: WARM },
