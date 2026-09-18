@@ -116,12 +116,19 @@ export function Blocks({
   blocks,
   kind,
   accent,
+  wide,
 }: {
   blocks: Block[];
   /** Colours the section's callouts to match its purpose. */
   kind?: SectionKind;
   accent?: string;
+  /** Drop the readable-measure cap so prose fills the column (used by Cram). */
+  wide?: boolean;
 }) {
+  // Prose is normally held to a comfortable line length; `wide` lets it run
+  // the full width of its container instead.
+  const measure = wide ? undefined : `${MEASURE}ch`;
+  const measurePlus = wide ? undefined : `${MEASURE + 4}ch`;
   return (
     <>
       {blocks.map((b, i) => {
@@ -138,7 +145,7 @@ export function Blocks({
                 background: lead.bg,
                 borderLeft: `3px solid ${lead.border}`,
                 borderRadius: 7,
-                maxWidth: `${MEASURE + 4}ch`,
+                maxWidth: measurePlus,
               }}
             >
               <div
@@ -170,7 +177,7 @@ export function Blocks({
                   fontSize: 15,
                   lineHeight: 1.68,
                   color: INK_LIGHT,
-                  maxWidth: `${MEASURE}ch`,
+                  maxWidth: measure,
                 }}
               >
                 <Inlines nodes={b.v} />
@@ -216,7 +223,7 @@ export function Blocks({
 
           case 'list':
             return b.ordered ? (
-              <ol key={i} style={listStyle}>
+              <ol key={i} style={{ ...listStyle, maxWidth: measure }}>
                 {b.items.map((it, j) => (
                   <li key={j} style={{ ...itemStyle, marginLeft: it.depth * 16 }}>
                     <Inlines nodes={it.v} />
@@ -224,7 +231,7 @@ export function Blocks({
                 ))}
               </ol>
             ) : (
-              <ul key={i} style={{ ...listStyle, listStyle: 'none', paddingLeft: 0 }}>
+              <ul key={i} style={{ ...listStyle, listStyle: 'none', paddingLeft: 0, maxWidth: measure }}>
                 {b.items.map((it, j) => (
                   <li
                     key={j}
@@ -332,7 +339,7 @@ export function Blocks({
                   background: tone.bg,
                   borderLeft: `3px solid ${tone.border}`,
                   borderRadius: 7,
-                  maxWidth: `${MEASURE + 4}ch`,
+                  maxWidth: measurePlus,
                 }}
               >
                 {b.title && (
@@ -350,7 +357,7 @@ export function Blocks({
                   </div>
                 )}
                 <div style={{ marginBottom: -13 }}>
-                  <Blocks blocks={b.children} kind={kind} accent={accent} />
+                  <Blocks blocks={b.children} kind={kind} accent={accent} wide={wide} />
                 </div>
               </div>
             );

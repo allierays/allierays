@@ -163,7 +163,7 @@ export default function Cram() {
                         </div>
 
                         {facts ? (
-                          <Blocks blocks={facts.blocks} kind="abilities" accent={d.accent} />
+                          <Blocks blocks={facts.blocks} kind="abilities" accent={d.accent} wide />
                         ) : (
                           <p style={{ fontSize: 13, color: INK_MUTED, fontStyle: 'italic' }}>
                             No key facts recorded for this objective.
@@ -184,7 +184,7 @@ export default function Cram() {
                             >
                               Numbers
                             </div>
-                            <Blocks blocks={numbers.blocks} kind="numbers" accent={d.accent} />
+                            <Blocks blocks={numbers.blocks} kind="numbers" accent={d.accent} wide />
                           </div>
                         )}
                       </article>

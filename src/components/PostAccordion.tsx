@@ -64,7 +64,7 @@ export default function PostAccordion({ posts }: Props) {
               style={{
                 position: 'absolute',
                 inset: 0,
-                background: 'linear-gradient(to top, rgba(30,42,74,0.97) 0%, rgba(30,42,74,0.85) 50%, rgba(30,42,74,0.5) 100%)',
+                background: 'linear-gradient(to top, rgba(30,42,74,0.98) 0%, rgba(30,42,74,0.93) 42%, rgba(30,42,74,0.6) 70%, rgba(30,42,74,0.2) 100%)',
               }}
             />
             <div
@@ -181,7 +181,7 @@ export default function PostAccordion({ posts }: Props) {
                 position: 'absolute',
                 inset: 0,
                 background: isActive
-                  ? 'linear-gradient(to top, rgba(30,42,74,0.97) 0%, rgba(30,42,74,0.85) 50%, rgba(30,42,74,0.4) 100%)'
+                  ? 'linear-gradient(to top, rgba(30,42,74,0.98) 0%, rgba(30,42,74,0.93) 42%, rgba(30,42,74,0.6) 70%, rgba(30,42,74,0.2) 100%)'
                   : 'rgba(30,42,74,0.85)',
                 transition: 'background 0.5s cubic-bezier(0.23, 1, 0.32, 1)',
               }}
