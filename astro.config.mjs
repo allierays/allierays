@@ -14,7 +14,7 @@ export default defineConfig({
     '/posts/5-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
     '/posts/6-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
   },
-  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/exam-prep') }), react()],
+  integrations: [mdx(), sitemap(), react()],
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {

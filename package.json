@@ -9,9 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro",
-    "exam:extract": "node scripts/extract-questions.mjs",
-    "exam:check": "node scripts/extract-questions.mjs --check"
+    "astro": "astro"
   },
   "dependencies": {
     "@astrojs/mdx": "^5.0.2",

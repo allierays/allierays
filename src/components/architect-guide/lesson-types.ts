@@ -1,5 +1,8 @@
-// Structured teaching content, parsed from the study vault at extract time so
-// no markdown parser has to ship to the browser.
+// The shape a lesson canvas renders.
+//
+// Lifted out of the exam data layer when that was removed from the site. The
+// guide builds these objects itself in VisualObjectiveLesson from the copy in
+// objectiveExperiences.ts, so this is a rendering contract, not stored data.
 
 export type Inline =
   | { t: 'text'; v: string }
@@ -15,30 +18,8 @@ export type Block =
   | { t: 'table'; head: Inline[][]; rows: Inline[][][] }
   | { t: 'callout'; kind: string; title: string; children: Block[] };
 
-export type SectionKind =
-  | 'abilities'
-  | 'concept'
-  | 'decide'
-  | 'numbers'
-  | 'exam'
-  | 'worked'
-  | 'selfcheck'
-  | 'sources'
-  | 'other';
-
 export interface NoteSection {
   title: string;
-  kind: SectionKind;
+  kind: string;
   blocks: Block[];
-}
-
-export interface ObjectiveNote {
-  /** "3.2" */
-  objective: string;
-  domain: number;
-  /** Objective title without the number prefix. */
-  title: string;
-  h1: string;
-  summary: string;
-  sections: NoteSection[];
 }
