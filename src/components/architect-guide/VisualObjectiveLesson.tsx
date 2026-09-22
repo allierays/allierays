@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import type { Inline, NoteSection } from '../../data/exam/notes-types';
+import type { Inline, NoteSection } from './lesson-types';
 import { OBJECTIVE_EXPERIENCES, type ExperienceLayout, type ObjectiveExperience } from './objectiveExperiences';
 function cleanText(value: string) {
   return value.replaceAll('\u2014', ',');
@@ -317,9 +317,8 @@ export default function VisualObjectiveLesson({ objectiveId, color, bg }: { obje
     </section>
 
     <AnimatePresence mode="wait">
-      <motion.div key={activeSection.title} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} className="grid gap-3 rounded-xl border border-[#DED8CE] bg-[#FAF9F4] p-4 md:grid-cols-[1fr_auto] md:items-center">
+      <motion.div key={activeSection.title} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} className="rounded-xl border border-[#DED8CE] bg-[#FAF9F4] p-4">
         <p className="text-[14px] leading-relaxed text-[#394646]"><strong>{shortTitle(activeSection.title)}.</strong> {conceptExcerpt(activeSection, config.instruction)}</p>
-        <a href={`/exam-prep/?mode=study&objective=${objectiveId}`} className="whitespace-nowrap text-[12px] font-extrabold underline underline-offset-2" style={{ color }}>Study the full objective</a>
       </motion.div>
     </AnimatePresence>
   </div>;
