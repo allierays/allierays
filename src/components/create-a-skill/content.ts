@@ -15,7 +15,7 @@
 
 // The hero walkthrough. A YouTube id; left empty, the hero shows a "coming
 // shortly" placeholder rather than a broken embed.
-export const WALKTHROUGH_YOUTUBE_ID = '';
+export const WALKTHROUGH_YOUTUBE_ID = 'MBmI2V1f7Dw';
 
 export const GUIDE = {
   slug: 'create-a-skill',
