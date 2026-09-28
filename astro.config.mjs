@@ -13,6 +13,7 @@ export default defineConfig({
     '/blog': '/',
     '/posts/5-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
     '/posts/6-techniques-to-debug-claude-code': '/posts/7-techniques-to-debug-claude-code',
+    '/posts/ccar-p-exam-study-guide': '/posts/ccar-p-certification-study-guide',
   },
   integrations: [mdx(), sitemap(), react()],
   vite: {
