@@ -139,3 +139,14 @@
     min-width: 0;
   }
 }
+
+/* Hover for buttons whose colors are set inline, where a Tailwind hover:bg
+ * would lose to the inline style. A filter and shadow sit on top of any fill. */
+.fg-hover {
+  transition: filter 0.15s, box-shadow 0.15s;
+}
+
+.fg-hover:not(:disabled):hover {
+  filter: brightness(0.92);
+  box-shadow: 0 2px 8px rgba(57, 70, 70, 0.12);
+}

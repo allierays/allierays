@@ -258,17 +258,18 @@ function Button({
   disabled?: boolean;
   small?: boolean;
 }) {
-  const base = `inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-colors ${
-    small ? 'px-3.5 py-2 text-[13px]' : 'px-5 py-3 text-[14px]'
-  } ${disabled ? 'cursor-not-allowed opacity-40' : ''}`;
-  const style: CSSProperties =
+  // Colors as classes, not inline styles, so the hover states can win.
+  const colors =
     kind === 'primary'
-      ? { background: GUIDE.accent.color, color: '#fff' }
+      ? 'bg-[#35656E] text-white enabled:hover:bg-[#28505A] enabled:hover:shadow-[0_4px_12px_rgba(53,101,110,0.3)]'
       : kind === 'danger'
-        ? { background: BAD_BG, color: BAD, border: `1px solid ${BAD}` }
-        : { background: '#fff', color: INK, border: `1px solid ${LINE}` };
+        ? 'border border-[#A9452F] bg-[#F8E6E1] text-[#A9452F] enabled:hover:bg-[#F1D3CA]'
+        : 'border border-[#ded8ce] bg-white text-[#394646] enabled:hover:border-[#35656E] enabled:hover:bg-[#F3F7F6]';
+  const base = `inline-flex items-center justify-center gap-2 rounded-xl font-bold transition-[background-color,border-color,box-shadow] ${
+    small ? 'px-3.5 py-2 text-[13px]' : 'px-5 py-3 text-[14px]'
+  } ${colors} ${disabled ? 'cursor-not-allowed opacity-40' : ''}`;
   return (
-    <button type="button" className={base} style={style} onClick={onClick} disabled={disabled}>
+    <button type="button" className={base} onClick={onClick} disabled={disabled}>
       {children}
     </button>
   );
@@ -510,7 +511,7 @@ function QuestionCard({
             type="button"
             onClick={onToggleFlag}
             aria-pressed={flagged}
-            className="ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] font-bold"
+            className="fg-hover ml-auto inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] font-bold"
             style={
               flagged
                 ? { background: FLAG_BG, color: FLAG, borderColor: FLAG }
@@ -875,7 +876,7 @@ function Quiz({ request }: { request: PracticeRequest | null }) {
               type="button"
               onClick={() => setPickDomain(0)}
               aria-pressed={pickDomain === 0}
-              className="rounded-full border px-3 py-1.5 text-[12.5px] font-bold"
+              className="fg-hover rounded-full border px-3 py-1.5 text-[12.5px] font-bold"
               style={pickDomain === 0 ? { background: INK, color: '#fff', borderColor: INK } : { background: '#fff', color: INK, borderColor: LINE }}
             >
               All domains · {QUESTIONS.length}
@@ -888,7 +889,7 @@ function Quiz({ request }: { request: PracticeRequest | null }) {
                   type="button"
                   onClick={() => setPickDomain(d.id)}
                   aria-pressed={on}
-                  className="rounded-full border px-3 py-1.5 text-[12.5px] font-bold"
+                  className="fg-hover rounded-full border px-3 py-1.5 text-[12.5px] font-bold"
                   style={on ? { background: d.accent, color: '#fff', borderColor: d.accent } : { background: '#fff', color: INK, borderColor: LINE }}
                 >
                   D{d.id} {d.short} · {d.items}
@@ -1168,7 +1169,7 @@ function MockScreen({
                 onClick={() => onJump(i)}
                 aria-label={`Item ${i + 1}${answered ? ', answered' : ''}${isFlag ? ', flagged' : ''}`}
                 aria-current={current ? 'true' : undefined}
-                className="h-7 w-7 rounded-md text-[11px] font-bold [font-variant-numeric:tabular-nums]"
+                className="fg-hover h-7 w-7 rounded-md text-[11px] font-bold [font-variant-numeric:tabular-nums]"
                 style={{
                   background: isFlag ? FLAG_BG : answered ? INK : '#fff',
                   color: isFlag ? FLAG : answered ? '#fff' : MUTED,
@@ -1300,7 +1301,7 @@ function Results({
               type="button"
               onClick={() => setFilter(f)}
               aria-pressed={on}
-              className="rounded-full border px-3 py-1 text-[12px] font-bold"
+              className="fg-hover rounded-full border px-3 py-1 text-[12px] font-bold"
               style={on ? { background: INK, color: '#fff', borderColor: INK } : { background: '#fff', color: INK, borderColor: LINE }}
             >
               {label}
@@ -1318,7 +1319,7 @@ function Results({
                 type="button"
                 onClick={() => setOpen(isOpen ? null : q.id)}
                 aria-expanded={isOpen}
-                className="flex w-full items-start gap-3 rounded-xl border bg-white px-4 py-3 text-left"
+                className="fg-hover flex w-full items-start gap-3 rounded-xl border bg-white px-4 py-3 text-left"
                 style={{ borderColor: LINE }}
               >
                 <span

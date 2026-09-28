@@ -109,19 +109,37 @@ a:hover {
   counter-reset: section;
 }
 
+/* A call-to-action link styled as a button. */
+.post-button {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 12px;
+  background: #35656E;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s, box-shadow 0.15s;
+}
+
+.post-button:hover {
+  background: #2A5158;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(53, 101, 110, 0.25);
+}
+
 /* Inline links in the post's own text, not buttons or embedded components. */
-.prose > p a:not([style]),
-.prose > ul a:not([style]),
-.prose > ol a:not([style]) {
+.prose > p a:not([style]):not(.post-button),
+.prose > ul a:not([style]):not(.post-button),
+.prose > ol a:not([style]):not(.post-button) {
   color: #35656E;
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
 }
 
-.prose > p a:not([style]):hover,
-.prose > ul a:not([style]):hover,
-.prose > ol a:not([style]):hover {
+.prose > p a:not([style]):not(.post-button):hover,
+.prose > ul a:not([style]):not(.post-button):hover,
+.prose > ol a:not([style]):not(.post-button):hover {
   color: #5b9ea6;
 }
 
