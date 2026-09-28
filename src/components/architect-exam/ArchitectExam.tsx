@@ -428,6 +428,8 @@ interface QuestionCardProps {
   onChange: (r: Response) => void;
   /** Practice after checking, or mock review: shows the key and rationale. */
   revealed: boolean;
+  eliminated?: number[];
+  onEliminatedChange?: (indices: number[]) => void;
   position?: { index: number; total: number };
   flagged?: boolean;
   onToggleFlag?: () => void;
@@ -438,12 +440,26 @@ function TypeLabel({ q }: { q: Question }) {
   return <Pill color={INK} bg={PAPER}>{text}</Pill>;
 }
 
-function QuestionCard({ q, response, onChange, revealed, position, flagged, onToggleFlag }: QuestionCardProps) {
+function QuestionCard({
+  q,
+  response,
+  onChange,
+  revealed,
+  eliminated = [],
+  onEliminatedChange,
+  position,
+  flagged,
+  onToggleFlag,
+}: QuestionCardProps) {
   const domain = DOMAIN_BY_ID[q.domain];
   const [refused, setRefused] = useState(false);
+  const [hoveredOption, setHoveredOption] = useState<number | null>(null);
 
   const toggle = (i: number) => {
     if (revealed || q.type === 'match') return;
+    if (eliminated.includes(i)) {
+      onEliminatedChange?.(eliminated.filter((value) => value !== i));
+    }
     if (q.type === 'single') {
       onChange([i]);
       return;
@@ -457,6 +473,18 @@ function QuestionCard({ q, response, onChange, revealed, position, flagged, onTo
       // and silently swapping an earlier pick would teach the wrong habit.
       setRefused(true);
       window.setTimeout(() => setRefused(false), 1400);
+    }
+  };
+
+  const toggleEliminated = (i: number) => {
+    if (revealed || q.type === 'match' || !onEliminatedChange) return;
+    if (eliminated.includes(i)) {
+      onEliminatedChange(eliminated.filter((value) => value !== i));
+      return;
+    }
+    onEliminatedChange([...eliminated, i]);
+    if (response.includes(i)) {
+      onChange(response.filter((value) => value !== i));
     }
   };
 
@@ -505,6 +533,8 @@ function QuestionCard({ q, response, onChange, revealed, position, flagged, onTo
           <ul className="mt-5 grid gap-2">
             {q.options.map((o, i) => {
               const picked = response.includes(i);
+              const struck = eliminated.includes(i);
+              const hovered = hoveredOption === i;
               let border = LINE;
               let bg = '#fff';
               let dim = false;
@@ -521,30 +551,69 @@ function QuestionCard({ q, response, onChange, revealed, position, flagged, onTo
               } else if (picked) {
                 border = GUIDE.accent.color;
                 bg = GUIDE.accent.bg;
+              } else if (struck) {
+                bg = PAPER;
+                dim = true;
+              } else if (hovered) {
+                border = '#A9BCBC';
+                bg = '#F5F8F7';
               }
               return (
                 <li key={i}>
-                  <button
-                    type="button"
-                    onClick={() => toggle(i)}
-                    aria-pressed={picked}
-                    disabled={revealed}
-                    className="flex w-full items-start gap-3 rounded-xl border px-4 py-3 text-left transition-colors"
-                    style={{ borderColor: border, background: bg, opacity: dim ? 0.7 : 1, cursor: revealed ? 'default' : 'pointer' }}
+                  <div
+                    className="flex w-full items-stretch overflow-hidden rounded-xl border transition-all"
+                    style={{
+                      borderColor: border,
+                      background: bg,
+                      opacity: dim ? 0.68 : 1,
+                      boxShadow: hovered && !revealed && !struck ? '0 3px 12px rgba(57,70,70,0.1)' : 'none',
+                    }}
+                    onMouseEnter={() => setHoveredOption(i)}
+                    onMouseLeave={() => setHoveredOption(null)}
                   >
-                    <span
-                      className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md text-[12px] font-extrabold"
-                      style={{
-                        background: revealed && o.correct ? GOOD : revealed && picked ? BAD : picked ? GUIDE.accent.color : PAPER,
-                        color: (revealed && (o.correct || picked)) || picked ? '#fff' : INK,
-                      }}
+                    <button
+                      type="button"
+                      onClick={() => toggle(i)}
+                      aria-pressed={picked}
+                      disabled={revealed}
+                      className="flex min-w-0 flex-1 items-start gap-3 px-4 py-3 text-left"
+                      style={{ background: 'transparent', color: INK, cursor: revealed ? 'default' : 'pointer' }}
                     >
-                      {LETTERS[i]}
-                    </span>
-                    <span className="text-[14.5px] leading-snug" style={{ color: INK }}>
-                      {o.text}
-                    </span>
-                  </button>
+                      <span
+                        className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-md text-[12px] font-extrabold"
+                        style={{
+                          background: revealed && o.correct ? GOOD : revealed && picked ? BAD : picked ? GUIDE.accent.color : PAPER,
+                          color: (revealed && (o.correct || picked)) || picked ? '#fff' : INK,
+                        }}
+                      >
+                        {LETTERS[i]}
+                      </span>
+                      <span
+                        className="text-[14.5px] leading-snug"
+                        style={{ color: INK, textDecoration: struck ? 'line-through' : 'none', textDecorationThickness: '2px' }}
+                      >
+                        {o.text}
+                      </span>
+                    </button>
+                    {!revealed && onEliminatedChange && (
+                      <button
+                        type="button"
+                        onClick={() => toggleEliminated(i)}
+                        aria-label={`${struck ? 'Restore' : 'Strike out'} option ${LETTERS[i]}`}
+                        aria-pressed={struck}
+                        title={`${struck ? 'Restore' : 'Strike out'} option ${LETTERS[i]}`}
+                        className="flex w-[66px] flex-shrink-0 items-center justify-center border-l text-[11px] font-extrabold uppercase tracking-[0.04em] transition-colors"
+                        style={{
+                          borderColor: border,
+                          background: struck ? '#E7E3DC' : hovered ? '#EDF3F2' : 'rgba(250,249,244,0.65)',
+                          color: struck ? INK : MUTED,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        {struck ? 'Undo' : 'Strike'}
+                      </button>
+                    )}
+                  </div>
                   {revealed && (
                     <p className="mt-1.5 px-4 text-[13px] leading-relaxed" style={{ color: o.correct ? GOOD : picked ? BAD : MUTED }}>
                       <span className="font-extrabold">
@@ -651,6 +720,7 @@ interface MockState {
   version: 1;
   order: string[];
   responses: Record<string, Response>;
+  eliminated: Record<string, number[]>;
   flags: string[];
   index: number;
   startedAt: number;
@@ -662,6 +732,7 @@ interface PracticeState {
   order: string[];
   index: number;
   response: Response;
+  eliminated: number[];
   revealed: boolean;
   right: number;
   done: number;
@@ -685,6 +756,7 @@ function loadMock(): MockState | null {
         version: 1,
         order: parsed.order,
         responses: parsed.responses ?? {},
+        eliminated: parsed.eliminated ?? {},
         flags: parsed.flags ?? [],
         index: Math.min(Math.max(parsed.index ?? 0, 0), QUESTIONS.length - 1),
         startedAt: parsed.startedAt,
@@ -703,6 +775,7 @@ function newMock(): MockState {
     version: 1,
     order: shuffle(QUESTIONS.map((q) => q.id), seed),
     responses: {},
+    eliminated: {},
     flags: [],
     index: 0,
     startedAt: seed,
@@ -713,7 +786,7 @@ function newMock(): MockState {
 function newPractice(domain: DomainId | 0): PracticeState {
   const pool = QUESTIONS.filter((q) => domain === 0 || q.domain === domain);
   const order = shuffle(pool.map((q) => q.id), Date.now());
-  return { domain, order, index: 0, response: emptyResponse(QUESTION_BY_ID[order[0]]), revealed: false, right: 0, done: 0 };
+  return { domain, order, index: 0, response: emptyResponse(QUESTION_BY_ID[order[0]]), eliminated: [], revealed: false, right: 0, done: 0 };
 }
 
 function Quiz({ request }: { request: PracticeRequest | null }) {
@@ -909,6 +982,8 @@ function Quiz({ request }: { request: PracticeRequest | null }) {
           q={q}
           response={practice.response}
           onChange={(r) => setPractice({ ...practice, response: r })}
+          eliminated={practice.eliminated}
+          onEliminatedChange={(indices) => setPractice({ ...practice, eliminated: indices })}
           revealed={practice.revealed}
           position={{ index: practice.index, total: practice.order.length }}
         />
@@ -947,6 +1022,7 @@ function Quiz({ request }: { request: PracticeRequest | null }) {
                     ...practice,
                     index: nextIndex,
                     response: nextQ ? emptyResponse(nextQ) : [],
+                    eliminated: [],
                     revealed: false,
                   });
                 }}
@@ -979,6 +1055,8 @@ function Quiz({ request }: { request: PracticeRequest | null }) {
         unanswered={unanswered}
         flagged={flagged}
         onChange={(r) => setMock({ ...mock, responses: { ...mock.responses, [q.id]: r } })}
+        eliminated={mock.eliminated[q.id] ?? []}
+        onEliminatedChange={(indices) => setMock({ ...mock, eliminated: { ...mock.eliminated, [q.id]: indices } })}
         onToggleFlag={() =>
           setMock({ ...mock, flags: flagged ? mock.flags.filter((id) => id !== q.id) : [...mock.flags, q.id] })
         }
@@ -1017,6 +1095,8 @@ function MockScreen({
   unanswered,
   flagged,
   onChange,
+  eliminated,
+  onEliminatedChange,
   onToggleFlag,
   onJump,
   onSubmit,
@@ -1031,6 +1111,8 @@ function MockScreen({
   unanswered: number;
   flagged: boolean;
   onChange: (r: Response) => void;
+  eliminated: number[];
+  onEliminatedChange: (indices: number[]) => void;
   onToggleFlag: () => void;
   onJump: (i: number) => void;
   onSubmit: () => void;
@@ -1105,6 +1187,8 @@ function MockScreen({
         q={q}
         response={response}
         onChange={onChange}
+        eliminated={eliminated}
+        onEliminatedChange={onEliminatedChange}
         revealed={false}
         position={{ index: mock.index, total: EXAM.items }}
         flagged={flagged}
