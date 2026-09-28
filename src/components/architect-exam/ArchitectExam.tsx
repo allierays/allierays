@@ -1585,7 +1585,7 @@ export function PracticeExamPage({ studyHref }: { studyHref: string }) {
             </span>
           </div>
           <a href={studyHref} className="text-[13px] font-bold no-underline hover:underline" style={{ color: GUIDE.accent.color }}>
-            How I passed it
+            About this practice exam
           </a>
         </div>
       </header>
