@@ -1557,3 +1557,67 @@ export default function ArchitectExam() {
     </div>
   );
 }
+
+/**
+ * The practice test on its own full-screen page, apart from the study post.
+ * `?domain=3` opens straight into practice for that domain, so the post can
+ * link to one domain at a time.
+ */
+export function PracticeExamPage({ studyHref }: { studyHref: string }) {
+  const [request, setRequest] = useState<PracticeRequest | null>(null);
+
+  useEffect(() => {
+    const domain = Number(new URLSearchParams(window.location.search).get('domain'));
+    if (DOMAIN_BY_ID[domain as DomainId]) setRequest({ domain: domain as DomainId, nonce: 1 });
+  }, []);
+
+  return (
+    <div className="fg-scope min-h-[100dvh]" style={{ background: '#fff' }}>
+      <header className="border-b" style={{ borderColor: LINE }}>
+        <div className="mx-auto flex max-w-[1100px] flex-wrap items-center justify-between gap-3 px-4 py-3 md:px-6">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-full px-2.5 py-0.5 text-[11px] font-bold" style={{ background: GUIDE.accent.bg, color: GUIDE.accent.color }}>
+              {EXAM.code}
+            </span>
+            <span className="text-[15px] font-extrabold" style={{ color: INK }}>
+              Claude Certified Architect Professional practice exam
+            </span>
+          </div>
+          <a href={studyHref} className="text-[13px] font-bold no-underline hover:underline" style={{ color: GUIDE.accent.color }}>
+            How I passed it
+          </a>
+        </div>
+      </header>
+      <main className="mx-auto max-w-[1100px] px-4 py-8 md:px-6 md:py-10">
+        <PracticeExamSection request={request} />
+      </main>
+    </div>
+  );
+}
+
+function PracticeExamSection({ request = null }: { request?: PracticeRequest | null }) {
+  return (
+    <>
+      <H2>{EXAM.items} original items in the shape of the real exam</H2>
+      <Lede>
+        Practice one domain at a time with every option explained, or sit the full mock: {EXAM.items} items, {EXAM.minutes} minutes, scored by domain.
+        Your answers stay in this browser.
+      </Lede>
+      <div className="mt-6">
+        <Quiz request={request} />
+      </div>
+      <p className="mt-8 text-[12.5px] leading-relaxed" style={{ color: MUTED }}>
+        {DISCLAIMER}
+      </p>
+    </>
+  );
+}
+
+/** The practice test embedded in the study guide post. */
+export function PracticeExamEmbed() {
+  return (
+    <div className="fg-scope my-8">
+      <PracticeExamSection />
+    </div>
+  );
+}

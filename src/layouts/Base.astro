@@ -9,9 +9,11 @@ interface Props {
   jsonLd?: Record<string, any>;
   /** Personal pages that should not be indexed or listed in the sitemap. */
   noindex?: boolean;
+  /** Full-screen tools: no site header, footer, or content container. */
+  bare?: boolean;
 }
 
-const { title, description = 'Allie Rays — building with AI, writing about what works.', image, ogTitle = title, fullWidth = false, ogType = 'website', jsonLd, noindex = false } = Astro.props;
+const { title, description = 'Allie Rays — building with AI, writing about what works.', image, ogTitle = title, fullWidth = false, ogType = 'website', jsonLd, noindex = false, bare = false } = Astro.props;
 const ogImage = image || '/images/allie-headshot-2026.png';
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
@@ -91,6 +93,10 @@ const defaultJsonLd = {
     </script>
   </head>
   <body>
+    {bare ? (
+      <slot />
+    ) : (
+      <>
     <header class="site-header">
       <div class="header-left">
         <a href="/" class="header-photo-link">
@@ -122,6 +128,8 @@ const defaultJsonLd = {
     <footer class="site-footer">
       <p>&copy; {new Date().getFullYear()} Allie Jones <a href="https://allierays.com" style="color: var(--ink-faint); text-decoration: none;">@allierays</a></p>
     </footer>
+      </>
+    )}
 
     <script type="module">
       const pres = document.querySelectorAll('pre[data-language="mermaid"]');
