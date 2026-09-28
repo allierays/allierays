@@ -109,6 +109,22 @@ a:hover {
   counter-reset: section;
 }
 
+/* Inline links in the post's own text, not buttons or embedded components. */
+.prose > p a:not([style]),
+.prose > ul a:not([style]),
+.prose > ol a:not([style]) {
+  color: #35656E;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.prose > p a:not([style]):hover,
+.prose > ul a:not([style]):hover,
+.prose > ol a:not([style]):hover {
+  color: #5b9ea6;
+}
+
 .prose div[style*="display: flex"] > div > p:first-child {
   margin-top: 0;
 }

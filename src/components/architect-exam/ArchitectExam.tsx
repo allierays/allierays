@@ -1522,7 +1522,7 @@ export default function ArchitectExam() {
             {/* Practice test */}
             <section id="quiz" className="scroll-mt-24">
               <Kicker>Practice test</Kicker>
-              <H2>{EXAM.items} original items in the shape of the real exam</H2>
+              <H2>{EXAM.code} Unofficial Practice Exam</H2>
               <Lede>
                 Distributed to the blueprint weights, with the three item formats candidates report. Every option has a rationale, because the wrong
                 options are where the distractor patterns live.
@@ -1598,7 +1598,7 @@ export function PracticeExamPage({ studyHref }: { studyHref: string }) {
 function PracticeExamSection({ request = null }: { request?: PracticeRequest | null }) {
   return (
     <>
-      <H2>{EXAM.items} original items in the shape of the real exam</H2>
+      <H2>{EXAM.code} Unofficial Practice Exam</H2>
       <Lede>
         Practice one domain at a time with every option explained, or sit the full mock: {EXAM.items} items, {EXAM.minutes} minutes, scored by domain.
         Your answers stay in this browser.
