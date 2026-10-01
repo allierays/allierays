@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350" role="img" aria-labelledby="title desc">
+  <title id="title">Agentic Architecture Review Claude Code Skill</title>
+  <desc id="desc">A LinkedIn infographic by Allie Jones listing ten areas reviewed by the agentic-architecture-review Claude skill.</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="7" stdDeviation="11" flood-color="#14233D" flood-opacity="0.09"/></filter>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#1E2A4A"/><stop offset="1" stop-color="#2E6971"/></linearGradient>
+    <style>
+      .display { font-family: Avenir, "Helvetica Neue", Arial, sans-serif; }
+      .mono { font-family: Menlo, Monaco, monospace; }
+      .row-title { font: 700 21px Avenir, "Helvetica Neue", Arial, sans-serif; fill: #1E2A4A; }
+      .row-copy { font: 500 19px Avenir, "Helvetica Neue", Arial, sans-serif; fill: #565D5B; }
+      .num { font: 700 16px Menlo, Monaco, monospace; fill: #B85E3D; }
+    </style>
+  </defs>
+  <rect width="1080" height="1350" fill="#F7F3EA"/>
+  <circle cx="1030" cy="-30" r="210" fill="#DDEDEF" opacity=".75"/><circle cx="1080" cy="30" r="118" fill="#F5D8CA" opacity=".8"/>
+
+  <g transform="translate(64 48)">
+    <rect width="154" height="40" rx="20" fill="#DDEDEF"/>
+    <text x="77" y="26" text-anchor="middle" class="display" font-size="16" font-weight="700" letter-spacing="1.8" fill="#35656E">CLAUDE SKILL</text>
+    <text x="952" y="25" text-anchor="end" class="display" font-size="18" font-weight="700" fill="#1E2A4A">ALLIE JONES</text>
+    <text x="952" y="50" text-anchor="end" class="mono" font-size="14" fill="#6D7774">@allierays</text>
+  </g>
+  <g transform="translate(64 138)">
+    <text class="display" font-size="54" font-weight="700" letter-spacing="-1.7" fill="#1E2A4A"><tspan x="0" y="0">Agentic Architecture Review</tspan><tspan x="0" y="62" fill="#35656E">Claude Code Skill</tspan></text>
+  </g>
+
+  <g transform="translate(64 270)" filter="url(#shadow)">
+    <rect width="952" height="92" rx="22" fill="url(#hero)"/>
+    <circle cx="50" cy="46" r="24" fill="#FFFFFF" opacity=".12"/><circle cx="48" cy="43" r="9" fill="none" stroke="#8ED6D1" stroke-width="3"/><path d="M54 49l11 11" fill="none" stroke="#8ED6D1" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="43" cy="41" r="3" fill="#FFFFFF"/><circle cx="53" cy="38" r="3" fill="#FFFFFF"/><circle cx="51" cy="48" r="3" fill="#FFFFFF"/><path d="M46 41l5-2m2 2l-2 5m-5-3l4 4" fill="none" stroke="#FFFFFF" stroke-width="1.7"/>
+    <text x="92" y="33" class="display" font-size="14" font-weight="700" letter-spacing="1.5" fill="#A9DADB">INSTALL IN CLAUDE CODE</text>
+    <text x="92" y="63" class="mono" font-size="18" font-weight="700" fill="#FFFFFF">/plugin marketplace add allierays/agentic-architecture-review</text>
+  </g>
+
+  <text x="64" y="408" class="display" font-size="18" font-weight="700" letter-spacing="2.3" fill="#35656E">WHAT IT REVIEWS</text><path d="M262 402H1016" stroke="#D8D3C8" stroke-width="2"/>
+
+  <g transform="translate(64 428)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#35656E"/><text x="28" y="50" class="num">01</text><text x="78" y="50" class="row-title">REAL SYSTEM</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Checks docs and diagrams against code, dependencies, and deployment.</text></g>
+  <g transform="translate(64 516)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#B85E3D"/><text x="28" y="50" class="num">02</text><text x="78" y="50" class="row-title">TOPOLOGY</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Labels every component and asks whether each agent is justified.</text></g>
+  <g transform="translate(64 604)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#D4B44A"/><text x="28" y="50" class="num">03</text><text x="78" y="50" class="row-title">AUTONOMY</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Matches freedom to verifiability and requires evidence for agents.</text></g>
+  <g transform="translate(64 692)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#35656E"/><text x="28" y="50" class="num">04</text><text x="78" y="50" class="row-title">INFRASTRUCTURE</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Flags retries, checkpoints, or tracing your runtime already provides.</text></g>
+  <g transform="translate(64 780)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#B85E3D"/><text x="28" y="50" class="num">05</text><text x="78" y="50" class="row-title">DATA + MEMORY</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Checks sources of truth, provenance, stale data, and memory cost.</text></g>
+  <g transform="translate(64 868)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#D4B44A"/><text x="28" y="50" class="num">06</text><text x="78" y="50" class="row-title">RUNTIME SAFETY</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Reviews checkpoints, idempotent writes, and restart-safe approvals.</text></g>
+  <g transform="translate(64 956)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#35656E"/><text x="28" y="50" class="num">07</text><text x="78" y="50" class="row-title">PERMISSIONS</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Checks enforced scope, untrusted content, and approval before writes.</text></g>
+  <g transform="translate(64 1044)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#B85E3D"/><text x="28" y="50" class="num">08</text><text x="78" y="50" class="row-title">TRACING</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Follows model calls, tools, retries, and approvals in one trace.</text></g>
+  <g transform="translate(64 1132)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#D4B44A"/><text x="28" y="50" class="num">09</text><text x="78" y="50" class="row-title">GOLDEN DATASET</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Looks for frozen evidence, labeled cases, edge cases, and holdouts.</text></g>
+  <g transform="translate(64 1220)"><rect width="952" height="82" rx="16" fill="#FFFFFF" stroke="#E1DDD3"/><rect width="8" height="82" rx="4" fill="#35656E"/><text x="28" y="50" class="num">10</text><text x="78" y="50" class="row-title">EVALS</text><path d="M286 20v42" stroke="#E3DED4"/><text x="310" y="49" class="row-copy">Reviews component, workflow, and security evals plus release gates.</text></g>
+</svg>

@@ -1,0 +1,72 @@
+---
+title: "A Skill That Reviews Your Agent Architecture"
+shortTitle: "Agentic Architecture Review"
+description: "A free Claude Code skill that reviews agent architectures and implementation plans against industry best practices."
+date: 2026-10-06
+tags: [agentic-architecture, applied-ai, claude, skills]
+image: "/images/agentic-architecture-review-thumb-v2.png"
+ogImage: "/images/agentic-architecture-review-og.png"
+ogTitle: "A Skill That Reviews Your Agent Architecture"
+hideHeaderImage: true
+readingTime: 3
+---
+
+import Terminal from '../../components/diagrams/Terminal';
+
+I recently passed the Claude Certified Architect - Professional exam (here's [the practice exam I built](/posts/ccar-p-certification-study-guide) for it). Studying for it made me want a consistent way to check that my agents, and my team's agents, follow industry best practices. So I built a Claude Code skill that reviews agent architectures and implementation plans against them. It combines industry best practices with what I learned studying for the certification, and it [installs as a Claude Code plugin](#how-to-install-it) in two commands.
+
+## What it does
+
+Give it a design doc, an implementation plan, or a codebase. It reviews the architecture, checks whether a plan delivers it, or both. If you only ask for feedback, it doesn't touch your files.
+
+<img
+  src="/images/agentic-architecture-review-linkedin.svg"
+  alt="Infographic showing the ten areas reviewed by the Agentic Architecture Review Claude Code skill"
+  class="full-width"
+  loading="lazy"
+/>
+
+<p style={{ textAlign: 'center', fontSize: '0.95rem', marginTop: '-0.5rem' }}>
+  <a href="/images/agentic-architecture-review-linkedin.png" download>Download the infographic</a>
+</p>
+
+<details class="review-table">
+  <summary>View accessible text version</summary>
+
+  | Area | What it checks |
+  |---|---|
+  | Real system | Diagrams and docs verified against the code, dependencies, and deployment |
+  | Topology | Each component labeled code, model call, workflow, tool, evaluator, or agent; simplest pattern that works; every agent justified |
+  | Autonomy | Freedom matched to how the output is verified; error analysis before adding agents |
+  | Infrastructure | Hand-built checkpointing, retries, or tracing your runtime already provides; duplicated code |
+  | Data and memory | Sources of truth, provenance, stale versus missing data, whether a knowledge graph earns its cost |
+  | Runtime | Checkpoints, idempotent writes, approvals that survive restarts |
+  | Permissions | Server-enforced scope, untrusted content, approval before external writes |
+  | Tracing | One trace through model calls, tools, retries, and approvals |
+  | Golden dataset | Frozen evidence, labeled cases, edge cases, holdout sets |
+  | Evals | Component, workflow, and security evals; calibrated judges; release gates |
+</details>
+
+It leads with a recommendation to keep, revise, or replace the design. Each finding is marked satisfied, partial, missing, or not applicable, with a citation to your docs or code and dated primary sources.
+
+## How to install it
+
+Add my plugin marketplace in Claude Code, then install the skill from it:
+
+<Terminal client:load version="v2.1.286" model="Opus 5.5" cwd="~/[project]" lines={[
+  { type: 'prompt', content: '/plugin marketplace add allierays/agentic-architecture-review' },
+  { type: 'prompt', content: '/plugin install agentic-architecture-review@allierays' },
+]} />
+
+Then point it at a design doc or plan. A shortened example of a review:
+
+<Terminal client:load version="v2.1.286" model="Opus 5.5" cwd="~/[project]" lines={[
+  { type: 'prompt', content: 'Review the architecture in docs/agent-design.md' },
+  { type: 'action', content: 'Read docs/agent-design.md' },
+  { type: 'action', content: 'Read src/agents/supervisor.ts' },
+  { type: 'action', content: 'Read package.json' },
+  { type: 'text', content: 'Recommendation: revise. The research, writer, and editor agents always run in the same order, so they are one workflow with three model calls. The supervisor adds cost without fixing a measured failure.' },
+  { type: 'text', content: 'Blocking: approvals are described in the prompt but not enforced before the CRM write.' },
+]} />
+
+If it gets your system wrong, [open an issue](https://github.com/allierays/agentic-architecture-review/issues).
